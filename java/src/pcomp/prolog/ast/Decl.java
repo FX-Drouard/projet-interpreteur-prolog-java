@@ -7,6 +7,8 @@
 
 package pcomp.prolog.ast;
 
+import java.util.List;
+
 /*
  * AST : interface des déclarations.
  *
@@ -16,7 +18,10 @@ public interface Decl {
 	
 	// Ligne et colonne du début de la déclaration
 	Position getPosition();
-
+	
+	//rajout FX
+	List<Predicate> getPredicates();
+	
 	// Interface du visiteur de termes.
 	public <T> T accept(DeclVisitor<T> visitor);
 }
