@@ -129,7 +129,7 @@ public class Gui {
 		}
 	})
 	;
-	JButton importe = new JButton(new ImageIcon( "./data/in.png" ));
+	JButton importe = new JButton(new ImageIcon( "data/in.png" ));
 	importe.setToolTipText("Importer");
 	importe.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
