@@ -71,4 +71,8 @@ public class TermPredicate implements Term {
 	@Override public <T> T accept(TermVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+	public boolean remplacer(TermVariable x, Term nouv) {
+		return pred.remplacer(x, nouv);
+	}
 }

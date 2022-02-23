@@ -98,4 +98,25 @@ public class Predicate {
 		buf.append(")");
 		return buf.toString();
 	}
+	
+	// Autres méthodes
+	///////////////////////
+	public boolean remplacer(TermVariable x, Term nouv) {
+		boolean replaced = false;
+		for (int i=0;i<args.size();i++) {
+			Term t = args.get(i);
+			if (t instanceof TermVariable) {
+				if (((TermVariable)t).equals(x)) {
+					// on a trouvé une variable x, on la remplace
+					replaced = true;
+					args.set(i, nouv);
+				}
+			} else if (t instanceof TermPredicate) {
+				// on va chercher en profondeur
+				Predicate tmp = ((TermPredicate)t).getPredicate();
+				replaced = replaced || tmp.remplacer(x, nouv);
+			}
+		}
+		return replaced;
+	}
 }

@@ -1,15 +1,12 @@
 package pcomp.prolog.ast.test;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import pcomp.prolog.ast.*;
 
-public class MainTest {
-	
-	// création des Term avec la Position à null
+public class MainUnification {
+
 	public static void main(String[] args) {
 		// p (g (X), X)
 		TermVariable x = new TermVariable("X",null);
@@ -26,7 +23,7 @@ public class MainTest {
 		// p (Y, h(Y))
 		TermVariable y = new TermVariable("Y",null);
 		List<Term> argPred3 = new ArrayList<>();
-		argPred3.add(y);
+		argPred3.add(x);
 		Predicate pred3 = new Predicate("h",argPred3,null);
 		TermPredicate term3 = new TermPredicate(pred3,null);
 		List<Term> argPred4 = new ArrayList<>();
@@ -39,26 +36,9 @@ public class MainTest {
 		Equation eq1 = new Equation(term2,term4);
 		Systeme s = new Systeme();
 		s.addEquation(eq1);
-		
-		//Tests
-		System.out.println("décomposer"+eq1.decomposer(s));
 		s.afficher();
-		for (int i=0;i<s.size();i++) {
-			System.out.println("orienter : "+s.getEq(i).orienter(s));
-		}
+		s.unification();
 		s.afficher();
-		
-		s.addEquation(new Equation(term2,term2));
-		s.afficher();
-		for (int i=0;i<s.size();i++) {
-			System.out.println("effacer : "+s.getEq(i).effacer(s));
-		}
-		s.afficher();
-		for (int i=0;i<s.size();i++) {
-			System.out.println("décomposer : "+s.getEq(i).decomposer(s));
-		}
-		s.afficher();
-		
 	}
 
 }

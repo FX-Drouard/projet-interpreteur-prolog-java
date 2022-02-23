@@ -50,7 +50,33 @@ public class Equation {
 	}
 	
 	public boolean remplacer(Systeme s, Equation e) {
+		// Hypothèses : e est de la forme TermVariable = Term
+		boolean replaced = false;
+		if (droite instanceof TermVariable) {
+			if (droite.equals(e.gauche)) {
+				// on remplace
+				replaced = true;
+				droite = e.droite;
+			}
+		} else {
+			// c'est un TermPredicate
+			replaced = ((TermPredicate)droite).remplacer((TermVariable)e.gauche, e.droite);
+		}
+		if (gauche instanceof TermVariable) {
+			if (gauche.equals(e.gauche)) {
+				// on remplace
+				replaced = true;
+				gauche = e.droite;
+			}
+		} else {
+			// c'est un TermPredicate
+			replaced = ((TermPredicate)gauche).remplacer((TermVariable)e.gauche, e.droite);
+		}
 		return false;
+	}
+	
+	public boolean formatROK() {
+		return gauche instanceof TermVariable;
 	}
 	
 	public String toString() {
