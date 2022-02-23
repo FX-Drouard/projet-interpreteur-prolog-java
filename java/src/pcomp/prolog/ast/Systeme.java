@@ -27,15 +27,28 @@ public class Systeme {
 	public void unification() {
 		// regleapp sert de condition d'arrêt de notre boucle d'unification
 		boolean regleapp = true;
-		// liste contiendra le nouveau système issu d'une boucle dans l'unification
-		List<Equation> nouvSys;
+		// liste contiendra l'ancien système d'équations, on fera la boucle dessu
+		List<Equation> oldSys;
 		while (regleapp) {
 			regleapp = false; //aucune règle n'a été appliquée sur le système pendant ce tour
-			nouvSys = copie();
+			oldSys = copie();
 			
 			// Application des règles
-			
-			eqs = nouvSys;
+		}
+	}
+	
+	public Equation getEq(int index) {
+		return eqs.get(index);
+	}
+	
+	public int size() {
+		return eqs.size();
+	}
+	
+	public void afficher() {
+		System.out.println("Affichage du systeme :");
+		for (Equation e : eqs) {
+			System.out.println(e);
 		}
 	}
 
