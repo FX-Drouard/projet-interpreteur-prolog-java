@@ -99,15 +99,17 @@ public class Predicate {
 		return buf.toString();
 	}
 	
-	// Autres méthodes
+	// Autres methodes
 	///////////////////////
+	
+	// Remplace, si presente, la variable x dans ses arguments
 	public boolean remplacer(TermVariable x, Term nouv) {
 		boolean replaced = false;
 		for (int i=0;i<args.size();i++) {
 			Term t = args.get(i);
 			if (t instanceof TermVariable) {
 				if (((TermVariable)t).equals(x)) {
-					// on a trouvé une variable x, on la remplace
+					// on a trouve une variable x, on la remplace
 					replaced = true;
 					args.set(i, nouv);
 				}
