@@ -1,13 +1,17 @@
 package pcomp.prolog.ast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import pcomp.prolog.ast.excep.FoundRException;
+import pcomp.prolog.ast.excep.NoSolutionException;
 
 public class Systeme {
 	
 	private List<Equation> eqs = new ArrayList<>();
+	private Map<TermVariable, Term> env = new HashMap<>();
 	
 	// Methodes pour gerer la liste d'Equation
 	/////////////////////////////////////////////
@@ -37,6 +41,33 @@ public class Systeme {
 		return eqs.size();
 	}
 	
+	// Affichage
+	public void afficherSysteme() {
+		System.out.println("Affichage du systeme :");
+		for (Equation e : eqs) {
+			System.out.println(e);
+		}
+	}
+	
+	// Methodes pour gerer l'environnement
+	/////////////////////////////////////////////
+	
+	private void addEnv(Equation e) {
+		TermVariable key = (TermVariable)e.getGauche();
+		env.put(key, e.getDroite());
+	}
+	
+	public Map<TermVariable,Term> getEnv() {
+		return env;
+	}
+	
+	public void afficherEnv() {
+		System.out.println("Environnement :");
+		for (TermVariable key : env.keySet()) {
+			System.out.println(key + " -> "+ env.get(key));
+		}
+	}
+	
 	// Regles d'unification
 	///////////////////////////
 	
@@ -47,7 +78,7 @@ public class Systeme {
 		for (Equation e : oldSys) {
 			replaced = replaced || e.decomposer(this);
 		}
-		afficher();
+		afficherSysteme();
 		return replaced;
 	}
 	
@@ -58,7 +89,7 @@ public class Systeme {
 		for (Equation e : oldSys) {
 			replaced = replaced || e.effacer(this);
 		}
-		afficher();
+		afficherSysteme();
 		return replaced;
 	}
 	
@@ -69,55 +100,59 @@ public class Systeme {
 		for (Equation e : oldSys) {
 			replaced = replaced || e.orienter(this);
 		}
-		afficher();
+		afficherSysteme();
 		return replaced;
 	}
 	
-	private boolean remplacer() {
+	private boolean remplacer() throws NoSolutionException {
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
-		try {
-			for (Equation e : oldSys) {
-				// si e est de la forme TermVariable = Term, on peut essayer de remplacer
-				if (e.formatROK()) {
-					throw new FoundRException(e);
-				}
-			}
-		} catch (FoundRException excep) {
-			System.out.println(excep);
-			// on replace!
-			Equation nouv = excep.getEquation();
-			oldSys.remove(nouv); // pour conserver cette Equation
-			for (Equation e : oldSys) {
-				e.remplacer(this, nouv);
+		for (Equation e : oldSys) {
+		// si e est de la forme TermVariable = Term, on peut l'ajouter à l'environnement
+			if (e.formatROK()) {
+				// ajout dans l'environnement
+				addEnv(e);
 			}
 		}
-
-		afficher();
+		afficherSysteme();
 		return replaced;
 	}
 	
-	public void unification() {
+	private void subst() {
+		// regleapp sert de condition d'arret de notre boucle d'unification
+		boolean replaced = true;
+		List<Equation> oldSys;
+		while (replaced) {
+			replaced = false;
+			oldSys = copie();
+			for (TermVariable key : env.keySet()) {
+				for (Equation e : oldSys) {
+					e.subst(this, key, env.get(key));
+				}
+			}
+		}
+	}
+	
+	public void unify() {
 		// regleapp sert de condition d'arret de notre boucle d'unification
 		boolean regleapp = true;
 		
 		while (regleapp) {
 			regleapp = false; //aucune regle n'a ete appliquee sur le systeme pendant ce tour
 			// Application des regles
+			subst();
 			regleapp = regleapp || effacer();
 			regleapp = regleapp || decomposer();
 			regleapp = regleapp || orienter();
-			regleapp = regleapp || remplacer();
+			try {
+				regleapp = regleapp || remplacer();
+			} catch (NoSolutionException excep) {
+				System.out.println("Pas de solutions pour ce système");
+				env.clear(); //pas de solution, pas d'environnement
+			}
 		}
-	}
-	
-	// Affichage
-	public void afficher() {
-		System.out.println("Affichage du systeme :");
-		for (Equation e : eqs) {
-			System.out.println(e);
-		}
+		afficherEnv();
 	}
 
 }

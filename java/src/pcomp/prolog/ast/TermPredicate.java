@@ -72,7 +72,7 @@ public class TermPredicate implements Term {
 		return visitor.visit(this);
 	}
 
-	public boolean remplacer(TermVariable x, Term nouv) {
-		return pred.remplacer(x, nouv);
+	public boolean subst(TermVariable x, Term nouv) {
+		return pred.subst(x, nouv);
 	}
 }

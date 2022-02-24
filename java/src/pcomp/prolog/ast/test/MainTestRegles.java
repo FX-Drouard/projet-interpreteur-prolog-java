@@ -41,26 +41,24 @@ public class MainTestRegles {
 		s.addEquation(eq1);
 		
 		//Tests
-		s.afficher();
+		s.afficherSysteme();
 		System.out.println("décomposer : "+eq1.decomposer(s));
-		s.afficher();
+		s.afficherSysteme();
 		for (int i=0;i<s.size();i++) {
 			System.out.println("orienter : "+s.getEq(i).orienter(s));
 		}
-		s.afficher();
+		s.afficherSysteme();
 		
 		s.addEquation(new Equation(term2,term2));
-		s.afficher();
+		s.afficherSysteme();
 		for (int i=0;i<s.size();i++) {
 			System.out.println("effacer : "+s.getEq(i).effacer(s));
 		}
-		s.afficher();
+		s.afficherSysteme();
 		for (int i=0;i<s.size();i++) {
 			System.out.println("décomposer : "+s.getEq(i).decomposer(s));
 		}
-		s.afficher();
-		System.out.println("remplacer : "+s.getEq(1).remplacer(s,s.getEq(0)));
-		s.afficher();
+		s.afficherSysteme();
 	}
 
 }

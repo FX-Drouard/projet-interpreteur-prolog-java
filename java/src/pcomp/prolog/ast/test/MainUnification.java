@@ -36,9 +36,10 @@ public class MainUnification {
 		Equation eq1 = new Equation(term2,term4);
 		Systeme s = new Systeme();
 		s.addEquation(eq1);
-		s.afficher();
-		s.unification();
-		s.afficher();
+		s.afficherSysteme();
+		s.unify();
+		
+		// Test sur un système avec solution
 	}
 
 }

@@ -3,7 +3,6 @@ package pcomp.prolog.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-// A supprimer
 // Visiteur qui permet de lister toutes les variables dans un Term
 public class VisitorVar implements TermVisitor<List<TermVariable>> {
 
@@ -16,8 +15,12 @@ public class VisitorVar implements TermVisitor<List<TermVariable>> {
 
 	@Override
 	public List<TermVariable> visit(TermPredicate termPredicate) {
-		// TODO Auto-generated method stub
-		return null;
+		List<TermVariable> res = new ArrayList<>();
+		Predicate p = termPredicate.getPredicate();
+		for (Term t : p.getArguments()) {
+			res.addAll(t.accept(this));
+		}
+		return res;
 	}
 
 }

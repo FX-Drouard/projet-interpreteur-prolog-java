@@ -103,7 +103,7 @@ public class Predicate {
 	///////////////////////
 	
 	// Remplace, si presente, la variable x dans ses arguments
-	public boolean remplacer(TermVariable x, Term nouv) {
+	public boolean subst(TermVariable x, Term nouv) {
 		boolean replaced = false;
 		for (int i=0;i<args.size();i++) {
 			Term t = args.get(i);
@@ -116,7 +116,7 @@ public class Predicate {
 			} else if (t instanceof TermPredicate) {
 				// on va chercher en profondeur
 				Predicate tmp = ((TermPredicate)t).getPredicate();
-				replaced = replaced || tmp.remplacer(x, nouv);
+				replaced = replaced || tmp.subst(x, nouv);
 			}
 		}
 		return replaced;

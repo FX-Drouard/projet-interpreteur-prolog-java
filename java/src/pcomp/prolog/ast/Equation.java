@@ -2,6 +2,8 @@ package pcomp.prolog.ast;
 
 import java.util.List;
 
+import pcomp.prolog.ast.excep.NoSolutionException;
+
 public class Equation {
 	
 	private Term gauche, droite;
@@ -13,7 +15,7 @@ public class Equation {
 		droite = d;
 	}
 	
-	// RÃ¨gles d'unification
+	// Regles d'unification
 	////////////////////////////
 	public boolean effacer(Systeme s) {
 		if (gauche.equals(droite)) {
@@ -53,38 +55,53 @@ public class Equation {
 	}
 	
 	// Applique la regle remplacer sur l'Equation courante avec pour reference l'Equation e passee en parametre
-	public boolean remplacer(Systeme s, Equation e) {
-		// Hypotheses : e est de la forme TermVariable = Term
-		if (e.equals(this)) {
-			// on n'applique pas la regle sur soi-meme
-			return false;
-		}
+	public boolean subst(Systeme s, TermVariable x, Term nouv) {
 		boolean replaced = false;
 		if (droite instanceof TermVariable) {
-			if (droite.equals(e.gauche)) {
+			if (droite.equals(x)) {
 				// on remplace
 				replaced = true;
-				droite = e.droite; // creer un setter?
+				droite = nouv; // creer un setter?
 			}
 		} else {
 			// c'est un TermPredicate
-			replaced = ((TermPredicate)droite).remplacer((TermVariable)e.gauche, e.droite); // creer des getter?
+			replaced = ((TermPredicate)droite).subst((TermVariable)x, nouv); // creer des getter?
 		}
 		if (gauche instanceof TermVariable) {
-			if (gauche.equals(e.gauche)) {
+			if (gauche.equals(x)) {
 				// on remplace
 				replaced = true;
-				gauche = e.droite; // creer un setter?
+				gauche = nouv; // creer un setter?
 			}
 		} else {
 			// c'est un TermPredicate
-			replaced = ((TermPredicate)gauche).remplacer((TermVariable)e.gauche, e.droite);
+			replaced = ((TermPredicate)gauche).subst((TermVariable)x, nouv);
 		}
 		return replaced;
 	}
 	
-	public boolean formatROK() {
-		return gauche instanceof TermVariable;
+	private boolean occur_check() throws NoSolutionException {
+		// équation est de forme TermVariable = Term
+		VisitorVar v = new VisitorVar();
+		List<TermVariable> vars = droite.accept(v);
+		if (vars.contains(gauche)) {
+			throw new NoSolutionException("OccurCheck true : "+this.toString());
+		}
+		return false;
+	}
+	
+	public boolean formatROK() throws NoSolutionException {
+		return gauche instanceof TermVariable && !occur_check();
+	}
+	
+	// Methodes usuelles
+	
+	public Term getDroite() {
+		return droite;
+	}
+	
+	public Term getGauche() {
+		return gauche;
 	}
 	
 	@Override
