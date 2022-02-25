@@ -35,7 +35,7 @@ public class Equation {
 		return false;
 	}
 	
-	public boolean decomposer(Systeme s) {
+	public boolean decomposer(Systeme s) throws NoSolutionException {
 		//comparaison des symboles si on a des predicats a gauche et a droite
 		if (gauche instanceof TermPredicate && droite instanceof TermPredicate) {
 			Predicate p1 = ((TermPredicate)gauche).getPredicate();
@@ -49,6 +49,8 @@ public class Equation {
 				}
 				s.removeEquation(this);
 				return true;
+			} else {
+				throw new NoSolutionException("Décomposition impossible sur l'Equation "+toString());
 			}
 		}
 		return false;

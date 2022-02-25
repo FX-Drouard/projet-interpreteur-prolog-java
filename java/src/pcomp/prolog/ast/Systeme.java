@@ -47,6 +47,9 @@ public class Systeme {
 		for (Equation e : eqs) {
 			System.out.println(e);
 		}
+		if (eqs.isEmpty()) {
+			System.out.println("Pas d'équations");
+		}
 	}
 	
 	// Methodes pour gerer l'environnement
@@ -66,45 +69,61 @@ public class Systeme {
 		for (TermVariable key : env.keySet()) {
 			System.out.println(key + " -> "+ env.get(key));
 		}
+		if (env.isEmpty()) {
+			System.out.println("Pas d'environnement");
+		}
 	}
 	
 	// Regles d'unification
 	///////////////////////////
 	
-	private boolean decomposer() {
+	private boolean decomposer() throws NoSolutionException {
+		System.out.println("Décomposer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.decomposer(this);
 		}
-		afficherSysteme();
+		System.out.println(replaced);
+		if (replaced) {
+			afficherSysteme();
+		}
 		return replaced;
 	}
 	
 	private boolean effacer() {
+		System.out.println("Effacer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.effacer(this);
 		}
-		afficherSysteme();
+		System.out.println(replaced);
+		if (replaced) {
+			afficherSysteme();
+		}
 		return replaced;
 	}
 	
 	private boolean orienter() {
+		System.out.println("Orienter?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.orienter(this);
 		}
-		afficherSysteme();
+		System.out.println(replaced);
+		if (replaced) {
+			afficherSysteme();
+		}
 		return replaced;
 	}
 	
 	private boolean remplacer() throws NoSolutionException {
+		System.out.println("Remplacer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
@@ -113,13 +132,20 @@ public class Systeme {
 			if (e.formatROK()) {
 				// ajout dans l'environnement
 				addEnv(e);
+				replaced = true;
 			}
 		}
-		afficherSysteme();
+		System.out.println(replaced);
+		if (replaced) {
+			subst();
+			afficherSysteme();
+		}
 		return replaced;
 	}
 	
 	private void subst() {
+		System.out.println("Substitution?");
+		afficherEnv();
 		// regleapp sert de condition d'arret de notre boucle d'unification
 		boolean replaced = true;
 		List<Equation> oldSys;
@@ -128,9 +154,13 @@ public class Systeme {
 			oldSys = copie();
 			for (TermVariable key : env.keySet()) {
 				for (Equation e : oldSys) {
-					e.subst(this, key, env.get(key));
+					replaced = e.subst(this, key, env.get(key)) || replaced;
 				}
 			}
+		}
+		System.out.println(replaced);
+		if (replaced) {
+			afficherSysteme();
 		}
 	}
 	
@@ -138,20 +168,21 @@ public class Systeme {
 		// regleapp sert de condition d'arret de notre boucle d'unification
 		boolean regleapp = true;
 		
-		while (regleapp) {
+		while (regleapp && !eqs.isEmpty()) {
 			regleapp = false; //aucune regle n'a ete appliquee sur le systeme pendant ce tour
 			// Application des regles
 			subst();
 			regleapp = regleapp || effacer();
-			regleapp = regleapp || decomposer();
 			regleapp = regleapp || orienter();
 			try {
+				regleapp = regleapp || decomposer();
 				regleapp = regleapp || remplacer();
 			} catch (NoSolutionException excep) {
 				System.out.println("Pas de solutions pour ce système");
 				env.clear(); //pas de solution, pas d'environnement
 			}
 		}
+		
 		afficherEnv();
 	}
 
