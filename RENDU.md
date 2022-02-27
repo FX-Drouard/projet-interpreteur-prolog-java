@@ -38,6 +38,9 @@ Pour appliquer l'algorithme d'unification sur un systÃ¨me d'Ã©quation, il faut d
 
 ```
 	Dans ce premier jalon, nous avons implantÃ© l'unification d'un systÃ¨me d'Ã©quations et le debut d'un affichage graphique.
-Dans un premier temps, nous avons choisi d'implÃ©menter la rÃ¨gle subst (remplacer) sans utiliser le Design Pattern Visiteur car nous voulions changer directement les TermVariable sans dans les objets concernÃ©s : Equation et TermPredicat en tant qu'argument. Mais son comportement quasi similaire nous fait douter de l'implÃ©mentation de cette rÃ¨gle. Nous la modifierons peut-Ãªtre plus tard dans le projet.
+Dans un premier temps, nous avons choisi d'implÃ©menter la rÃ¨gle subst (remplacer) sans utiliser le Design Pattern Visiteur car nous voulions changer directement les TermVariable sans dans les objets concernÃ©s : Equation et TermPredicat en tant qu'argument. Mais son comportement quasi similaire nous fait douter de l'implÃ©mentation de cette rÃ¨gle. Nous la modifierons sûrement plus tard dans le projet.
 Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une zone d'Ã©dition de texte et un system de chargement/sauvegarde de la zone d'Ã©dition qui utilise un lecteur de fichier simple et utilise le parser donnÃ© dans le projet. Nous amÃ©liorerons cette interface avec le temps.
+
+	Pour exécuter ce Jalon, il suffit d'exécuter la classe MainUnification qui contient tous les exemples de l'exercice 7 du TD4 concernant l'unification. La vérification du bon fonctionnement des fonctions se base sur les affichages du système d'équations et de l'environnement à chaque règle appliquée.
+	Nous avons rencontré des difficultés concernant l'implantation de la règle remplacer. Comme nous l'avons dit précédemment, nous avons des doutes sur l'efficacité de nos méthodes.
 ```
