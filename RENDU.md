@@ -1,4 +1,4 @@
-_Documentation du rendu de projet, Ã  remplir._
+_Documentation du rendu de projet,  remplir._
 
 # Jalon 1
 
@@ -37,6 +37,7 @@ Pour appliquer l'algorithme d'unification sur un système d'équation, il faut d
 ## Conclusion :
 
 ```
-	Dans ce premier jalon, nous avons implanté l'unification d'un système d'équations _ajouter les autres choses_.
+	Dans ce premier jalon, nous avons implanté l'unification d'un système d'équations et le debut d'un affichage graphique.
 Dans un premier temps, nous avons choisi d'implémenter la règle subst (remplacer) sans utiliser le Design Pattern Visiteur car nous voulions changer directement les TermVariable sans dans les objets concernés : Equation et TermPredicat en tant qu'argument. Mais son comportement quasi similaire nous fait douter de l'implémentation de cette règle. Nous la modifierons peut-être plus tard dans le projet.
+Dans un second temp nous avons créé une interface graphique simple avec une zone d'édition de texte et un system de chargement/sauvegarde de la zone d'édition qui utilise un lecteur de fichier simple et utilise le parser donné dans le projet. Nous améliorerons cette interface avec le temps.
 ```
