@@ -57,7 +57,10 @@ public class Equation {
 	}
 	
 	// Applique la regle remplacer sur l'Equation courante avec pour reference l'Equation e passee en parametre
-	public boolean subst(Systeme s, TermVariable x, Term nouv) {
+	public boolean subst(Systeme s, TermVariable x, Term nouv) throws NoSolutionException {
+		// vérification occur_check
+		Equation e = new Equation(x,nouv);
+		e.occur_check();
 		boolean replaced = false;
 		if (droite instanceof TermVariable) {
 			if (droite.equals(x)) {

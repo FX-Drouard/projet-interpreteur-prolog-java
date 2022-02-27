@@ -64,9 +64,9 @@ public class MainUnification {
 		
 		System.out.println("\n\n\n Eq 4\n\n");
 		// 4 : 
-		Program p41 = PrologParser.parseString("?- p(x,f(x),f(f(x))).");
+		Program p41 = PrologParser.parseString("?- p(X,f(X),f(f(X))).");
 		System.out.println(p41);
-		Program p42 = PrologParser.parseString("?- p(f(f(y)),y,f(y)).");
+		Program p42 = PrologParser.parseString("?- p(f(f(Y)),Y,f(Y)).");
 		System.out.println(p42);
 		Predicate pred41 = p41.getDeclarations().get(0).getPredicates().get(0);
 		System.out.println(pred41);
@@ -99,9 +99,9 @@ public class MainUnification {
 		
 		System.out.println("\n\n\n Eq 6\n\n");
 		// 6 : 
-		Program p61 = PrologParser.parseString("?-  q(x, r(u, x)).");
+		Program p61 = PrologParser.parseString("?-  q(X, r(U, X)).");
 		System.out.println(p61);
-		Program p62 = PrologParser.parseString("?-  q(r(y, a), r(z, r(b, z))).");
+		Program p62 = PrologParser.parseString("?-  q(r(Y, a), r(Z, r(b, Z))).");
 		System.out.println(p62);
 		Predicate pred61 = p61.getDeclarations().get(0).getPredicates().get(0);
 		System.out.println(pred61);
@@ -116,9 +116,9 @@ public class MainUnification {
 				
 		System.out.println("\n\n\n Eq 7\n\n");
 		// 7 : 
-		Program p71 = PrologParser.parseString("?-  p(x, f(x), r(f(x), x)).");
+		Program p71 = PrologParser.parseString("?-  p(X, f(X), r(f(X), X)).");
 		System.out.println(p71);
-		Program p72 = PrologParser.parseString("?-  p(z, f(f(a)), r(f(r(a, z)), v)).");
+		Program p72 = PrologParser.parseString("?-  p(z, f(f(a)), r(f(r(a, Z)), v)).");
 		System.out.println(p72);
 		Predicate pred71 = p71.getDeclarations().get(0).getPredicates().get(0);
 		System.out.println(pred71);
@@ -134,9 +134,9 @@ public class MainUnification {
 			
 		System.out.println("\n\n\n Eq 8\n\n");
 		// 8 : 
-		Program p81 = PrologParser.parseString("?-  p(f(r(x, y)), r(v, w), y).");
+		Program p81 = PrologParser.parseString("?-  p(f(r(X, Y)), r(V, W), Y).");
 		System.out.println(p81);
-		Program p82 = PrologParser.parseString("?-  p(f(z), x, f(x)).");
+		Program p82 = PrologParser.parseString("?-  p(f(Z), X, f(X)).");
 		System.out.println(p82);
 		Predicate pred81 = p81.getDeclarations().get(0).getPredicates().get(0);
 		System.out.println(pred81);
@@ -151,9 +151,9 @@ public class MainUnification {
 		
 		System.out.println("\n\n\n Eq 9\n\n");
 		// 9 : 
-		Program p91 = PrologParser.parseString("?-  p(f(y), f(z), f(t), f(x)).");
+		Program p91 = PrologParser.parseString("?-  p(f(Y), f(Z), f(T), f(X)).");
 		System.out.println(p91);
-		Program p92 = PrologParser.parseString("?-  p(g(z), g(x), g(y), g(z)).");
+		Program p92 = PrologParser.parseString("?-  p(g(Z), g(X), g(Y), g(Z)).");
 		System.out.println(p92);
 		Predicate pred91 = p91.getDeclarations().get(0).getPredicates().get(0);
 		System.out.println(pred91);
