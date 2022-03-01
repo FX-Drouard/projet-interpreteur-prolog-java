@@ -51,3 +51,7 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 	Nous avons renommé notre classe MainUnification qui testait les unifications des équations du TD par `Jalon1`.
 	Nous avons également modifié la classe MainTestRegles qui avait pour but de tester les règles d'unification une à une et de contrôler leurs effets sur le système par l'affichage.
 ```
+
+```
+	Nous plaçons les méthodes des différents interprètes une classe "statique" Interprete.
+```
