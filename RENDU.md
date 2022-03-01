@@ -14,7 +14,7 @@ Ainsi, on pourra reprÃ©senter un systÃ¨me d'Ã©quations par une Collection de l'A
 ```
 	Notre fonction occur_check est implÃ©mentÃ©e dans la classe Equation. Elle est de visibilitÃ© private car elle n'est appelÃ©e que localement dans la fonction formatROK. Cette fonction renvoie true si l'instance d'Equation est une bonne candidate pour appliquer la rÃ¨gle remplacer. C'est-Ã -dire que son Term gauche est une instance de TermVariable.
 	occur_check utiise un TermVisitor, VisitorVar qui renvoie la liste des variables trouvÃ©es dans un Term.
-Ainsi, elle lÃ¨ve l'exception NoSolutionException dans le cas oÃ¹ une variable se trouve dans le terme gauche et droit d'une Equation. Cette Exception est rattrappÃ©e le plus tard possible, c'est-Ã -dire dans la mÃ©thode unify de la classe Systeme, ce qui nous permet de mettre fin Ã  la boucle d'unify.
+Ainsi, elle lÃ¨ve l'exception NoSolutionException dans le cas oÃ¹ une variable qui se trouve dans le Term gauche est dans le Term droit d'une Equation. Cette Exception est rattrappÃ©e le plus tard possible, c'est-Ã -dire dans la mÃ©thode unify de la classe Systeme, ce qui nous permet de mettre fin Ã  la boucle d'unify.
 ```
 
 ## Question 3
@@ -43,4 +43,11 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 
 	Pour exécuter ce Jalon, il suffit d'exécuter la classe MainUnification qui contient tous les exemples de l'exercice 7 du TD4 concernant l'unification. La vérification du bon fonctionnement des fonctions se base sur les affichages du système d'équations et de l'environnement à chaque règle appliquée.
 	Nous avons rencontré des difficultés concernant l'implantation de la règle remplacer. Comme nous l'avons dit précédemment, nous avons des doutes sur l'efficacité de nos méthodes.
+```
+
+#Jalon 2
+
+```
+	Nous avons renommé notre classe MainUnification qui testait les unifications des équations du TD par `Jalon1`.
+	Nous avons également modifié la classe MainTestRegles qui avait pour but de tester les règles d'unification une à une et de contrôler leurs effets sur le système par l'affichage.
 ```

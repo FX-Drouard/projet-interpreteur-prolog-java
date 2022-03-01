@@ -6,7 +6,7 @@ import java.util.List;
 import pcomp.prolog.ast.*;
 import pcomp.prolog.parser.PrologParser;
 
-public class MainUnification {
+public class Jalon1 {
 
 	public static void main(String[] args) {
 		// Tests avec les équations du TD
