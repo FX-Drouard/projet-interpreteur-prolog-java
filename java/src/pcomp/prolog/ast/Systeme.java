@@ -55,7 +55,7 @@ public class Systeme {
 	// Methodes pour gerer l'environnement
 	/////////////////////////////////////////////
 	
-	private void addEnv(Equation e) {
+	public void addEnv(Equation e) {
 		TermVariable key = (TermVariable)e.getGauche();
 		env.put(key, e.getDroite());
 	}
