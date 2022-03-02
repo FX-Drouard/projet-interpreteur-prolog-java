@@ -55,8 +55,13 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 ```
 	Nous plaçons les méthodes des différents interprètes une classe "statique" Interprete.
 	Dans nos méthodes, nous vérifions, surtout pour les deux premiers interprètes, que les programmes vérifient bien les conditions de l'énoncé. Si ce n'est pas le cas, nous levant l'exception FormatASTNotOK.
-	On lève cette exception dans interprete0 quand :
+	On lève cette exception dans :
+	-interprete0 quand :
 		- il y a trop de déclarations
 		- le but est placé avant le fait (ou il n'y a pas de fait)
 		- il n'y a pas qu'un seul but
+	-interprete1 quand :
+		- il y a trop de buts
+		- les DeclAssertion ne sont pas que des faits
+		- il y a deux faits avec le même symbole de prédicat
 ```

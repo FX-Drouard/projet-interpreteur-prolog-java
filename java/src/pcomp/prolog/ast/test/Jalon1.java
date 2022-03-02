@@ -1,14 +1,17 @@
 package pcomp.prolog.ast.test;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import pcomp.prolog.ast.*;
+import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.parser.PrologParser;
 
 public class Jalon1 {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 		// Tests avec les équations du TD
 		
 		System.out.println("\n\n\n Eq 1\n\n");
@@ -164,7 +167,35 @@ public class Jalon1 {
 		s9.addEquation(eq9);
 		s9.afficherEnv();
 		s9.afficherSysteme();
-		s9.unify();	
+		s9.unify();
+		
+		// Jalon2
+		//interprete0
+		Program prog1 = PrologParser.parseFile("tests_jalon_pl/test0.pl");
+		Program prog2 = PrologParser.parseFile("tests_jalon_pl/test01.pl");
+		Program prog3 = PrologParser.parseFile("tests_jalon_pl/test02.pl");
+		try {
+			Map<TermVariable,Term> env1 = Interprete.interprete0(prog1);
+			Interprete.afficher(env1);
+			Map<TermVariable,Term> env2 = Interprete.interprete0(prog2);
+			Interprete.afficher(env2);
+			Map<TermVariable,Term> env3 = Interprete.interprete0(prog3);
+			Interprete.afficher(env3);
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
+		
+		//interprete1
+		Program prog11 = PrologParser.parseFile("tests_jalon_pl/test11.pl");
+		Program prog12 = PrologParser.parseFile("tests_jalon_pl/test12.pl");
+		try {
+			Map<TermVariable,Term> env11 = Interprete.interprete1(prog11);
+			Interprete.afficher(env11);
+			Map<TermVariable,Term> env12 = Interprete.interprete1(prog12);
+			Interprete.afficher(env12);
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
 	}
 
 }
