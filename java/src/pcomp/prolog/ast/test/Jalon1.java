@@ -14,7 +14,8 @@ public class Jalon1 {
 	public static void main(String[] args) throws IOException {
 		// Tests avec les équations du TD
 		
-		System.out.println("\n\n\n Eq 1\n\n");
+		System.out.println("Tests Unification");
+		System.out.println("\nEq 1\n");
 		// 1 :
 		Program p1 = PrologParser.parseString("?- p(Z,h(Z,W),f(W)).");
 		System.out.println(p1);
@@ -27,11 +28,10 @@ public class Jalon1 {
 		Equation eq1 = new Equation(new TermPredicate(pred1,pred1.getPosition()), new TermPredicate(pred2,pred2.getPosition()));
 		Systeme s1 = new Systeme();
 		s1.addEquation(eq1);
-		s1.afficherEnv();
 		s1.afficherSysteme();
 		s1.unify();
 		
-		System.out.println("\n\n\n Eq 2\n\n");
+		System.out.println("\n\nEq 2\n");
 		// 2 :
 		Program p21 = PrologParser.parseString("?- p(a,X,f(g(Y))).");
 		System.out.println(p21);
@@ -44,11 +44,10 @@ public class Jalon1 {
 		Equation eq2 = new Equation(new TermPredicate(pred21,pred21.getPosition()), new TermPredicate(pred22,pred22.getPosition()));
 		Systeme s2 = new Systeme();
 		s2.addEquation(eq2);
-		s2.afficherEnv();
 		s2.afficherSysteme();
 		s2.unify();
 		
-		System.out.println("\n\n\n Eq 3\n\n");
+		System.out.println("\n\nEq 3\n");
 		// 3 :
 		Program p31 = PrologParser.parseString("?- q(f(a),g(X)).");
 		System.out.println(p31);
@@ -61,11 +60,10 @@ public class Jalon1 {
 		Equation eq3 = new Equation(new TermPredicate(pred31,pred31.getPosition()), new TermPredicate(pred32,pred32.getPosition()));
 		Systeme s3 = new Systeme();
 		s3.addEquation(eq3);
-		s3.afficherEnv();
 		s3.afficherSysteme();
 		s3.unify();
 		
-		System.out.println("\n\n\n Eq 4\n\n");
+		System.out.println("\nEq 4\n");
 		// 4 : 
 		Program p41 = PrologParser.parseString("?- p(X,f(X),f(f(X))).");
 		System.out.println(p41);
@@ -78,12 +76,11 @@ public class Jalon1 {
 		Equation eq4 = new Equation(new TermPredicate(pred41,pred41.getPosition()), new TermPredicate(pred42,pred42.getPosition()));
 		Systeme s4 = new Systeme();
 		s4.addEquation(eq4);
-		s4.afficherEnv();
 		s4.afficherSysteme();
-		s4.unify();	
+		s4.unify();
 		
 		
-		System.out.println("\n\n\n Eq 5\n\n");
+		System.out.println("\nEq 5\n");
 		// 5 : 
 		Program p51 = PrologParser.parseString("?- q(x, q(y, z)).");
 		System.out.println(p51);
@@ -96,11 +93,10 @@ public class Jalon1 {
 		Equation eq5 = new Equation(new TermPredicate(pred51,pred51.getPosition()), new TermPredicate(pred52,pred52.getPosition()));
 		Systeme s5 = new Systeme();
 		s5.addEquation(eq5);
-		s5.afficherEnv();
 		s5.afficherSysteme();
 		s5.unify();	
 		
-		System.out.println("\n\n\n Eq 6\n\n");
+		System.out.println("\nEq 6\n");
 		// 6 : 
 		Program p61 = PrologParser.parseString("?-  q(X, r(U, X)).");
 		System.out.println(p61);
@@ -113,11 +109,10 @@ public class Jalon1 {
 		Equation eq6 = new Equation(new TermPredicate(pred61,pred61.getPosition()), new TermPredicate(pred62,pred62.getPosition()));
 		Systeme s6 = new Systeme();
 		s6.addEquation(eq6);
-		s6.afficherEnv();
 		s6.afficherSysteme();
 		s6.unify();	
 				
-		System.out.println("\n\n\n Eq 7\n\n");
+		System.out.println("\nEq 7\n");
 		// 7 : 
 		Program p71 = PrologParser.parseString("?-  p(X, f(X), r(f(X), X)).");
 		System.out.println(p71);
@@ -130,12 +125,11 @@ public class Jalon1 {
 		Equation eq7 = new Equation(new TermPredicate(pred71,pred71.getPosition()), new TermPredicate(pred72,pred72.getPosition()));
 		Systeme s7 = new Systeme();
 		s7.addEquation(eq7);
-		s7.afficherEnv();
 		s7.afficherSysteme();
 		s7.unify();	
 				
 			
-		System.out.println("\n\n\n Eq 8\n\n");
+		System.out.println("\n Eq 8\n");
 		// 8 : 
 		Program p81 = PrologParser.parseString("?-  p(f(r(X, Y)), r(V, W), Y).");
 		System.out.println(p81);
@@ -148,11 +142,10 @@ public class Jalon1 {
 		Equation eq8 = new Equation(new TermPredicate(pred81,pred81.getPosition()), new TermPredicate(pred82,pred82.getPosition()));
 		Systeme s8 = new Systeme();
 		s8.addEquation(eq8);
-		s8.afficherEnv();
 		s8.afficherSysteme();
 		s8.unify();	
 		
-		System.out.println("\n\n\n Eq 9\n\n");
+		System.out.println("\n Eq 9\n");
 		// 9 : 
 		Program p91 = PrologParser.parseString("?-  p(f(Y), f(Z), f(T), f(X)).");
 		System.out.println(p91);
@@ -165,34 +158,75 @@ public class Jalon1 {
 		Equation eq9 = new Equation(new TermPredicate(pred91,pred91.getPosition()), new TermPredicate(pred92,pred92.getPosition()));
 		Systeme s9 = new Systeme();
 		s9.addEquation(eq9);
-		s9.afficherEnv();
 		s9.afficherSysteme();
 		s9.unify();
 		
 		// Jalon2
+		System.out.println("\n\nTests interprete :");
+		Program prog1 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
+		Program prog2 = PrologParser.parseFile("tests_jalon_pl/interprete0_test1.pl");
+		Program prog3 = PrologParser.parseFile("tests_jalon_pl/interprete0_test2.pl");
+		Program prog_err = PrologParser.parseFile("tests_jalon_pl/interpretes_notOK.pl");
+		Program prog11 = PrologParser.parseFile("tests_jalon_pl/interprete1_test1.pl");
+		Program prog12 = PrologParser.parseFile("tests_jalon_pl/interprete1_test2.pl");
+		Program prog21 = PrologParser.parseFile("tests_jalon_pl/interprete2_test0.pl");
+		Program prog22 = PrologParser.parseFile("tests_jalon_pl/interprete2_test1.pl");
+		Program prog23 = PrologParser.parseFile("tests_jalon_pl/interprete2_test2.pl");
+		Program prog24 = PrologParser.parseFile("tests_jalon_pl/interprete2_test3.pl");
 		//interprete0
-		Program prog1 = PrologParser.parseFile("tests_jalon_pl/test0.pl");
-		Program prog2 = PrologParser.parseFile("tests_jalon_pl/test01.pl");
-		Program prog3 = PrologParser.parseFile("tests_jalon_pl/test02.pl");
+		System.out.println("interprete0");
 		try {
-			Map<TermVariable,Term> env1 = Interprete.interprete0(prog1);
-			Interprete.afficher(env1);
-			Map<TermVariable,Term> env2 = Interprete.interprete0(prog2);
-			Interprete.afficher(env2);
-			Map<TermVariable,Term> env3 = Interprete.interprete0(prog3);
-			Interprete.afficher(env3);
+			Environnement env1 = Interprete.interprete0(prog1);
+			env1.afficherEnv();;
+			Environnement env2 = Interprete.interprete0(prog2);
+			env2.afficherEnv();;
+			Environnement env3 = Interprete.interprete0(prog3);
+			env3.afficherEnv();;
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
+		System.out.println("\ncas de levée d'exception : ");
+		try {
+			Environnement env1 = Interprete.interprete0(prog11);
+			env1.afficherEnv();
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
+		try {
+			Environnement env1 = Interprete.interprete0(prog_err);
+			env1.afficherEnv();
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
+		try {
+			Environnement env1 = Interprete.interprete0(prog22);
+			env1.afficherEnv();
 		} catch (FormatASTNotOK e) {
 			System.out.println(e);
 		}
 		
 		//interprete1
-		Program prog11 = PrologParser.parseFile("tests_jalon_pl/test11.pl");
-		Program prog12 = PrologParser.parseFile("tests_jalon_pl/test12.pl");
+		System.out.println("\n\ninterprete1");
 		try {
-			Map<TermVariable,Term> env11 = Interprete.interprete1(prog11);
-			Interprete.afficher(env11);
-			Map<TermVariable,Term> env12 = Interprete.interprete1(prog12);
-			Interprete.afficher(env12);
+			Environnement env11 = Interprete.interprete1(prog11);
+			env11.afficherEnv();;
+			Environnement env12 = Interprete.interprete1(prog12);
+			env12.afficherEnv();;
+		} catch (FormatASTNotOK e) {
+			System.out.println(e);
+		}
+		
+		//interprete2
+		System.out.println("\n\ninterprete2");
+		try {
+			Environnement env21 = Interprete.interprete2(prog21);
+			env21.afficherEnv();
+			Environnement env22 = Interprete.interprete2(prog22);
+			env22.afficherEnv();
+			Environnement env23 = Interprete.interprete2(prog23);
+			env23.afficherEnv();
+			Environnement env24 = Interprete.interprete2(prog24);
+			env24.afficherEnv();
 		} catch (FormatASTNotOK e) {
 			System.out.println(e);
 		}

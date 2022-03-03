@@ -48,20 +48,25 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 #Jalon 2
 
 ```
-	Nous avons renommé notre classe MainUnification qui testait les unifications des équations du TD par `Jalon1`.
-	Nous avons également modifié la classe MainTestRegles qui avait pour but de tester les règles d'unification une à une et de contrôler leurs effets sur le système par l'affichage.
+	Nous avons renommé notre classe MainUnification qui testait les unifications des équations du TD par `Jalon1` pour correspondre à l'énoncé.
+	Nous avons également modifié la classe MainTestRegles qui avait pour but de tester les règles d'unification une à une et de contrôler leurs effets sur le système par l'affichage. Ces mêmes affichages, pour ce Jalon 2, ont été commentées afin de ne pas alourdir l'affichage des interprètes.
+	Une classe Environnement a été créée afin de ne pas surcharger la classe Systeme et aléger la signature des méthodes créées pour ce Jalon.
 ```
 
 ```
 	Nous plaçons les méthodes des différents interprètes une classe "statique" Interprete.
-	Dans nos méthodes, nous vérifions, surtout pour les deux premiers interprètes, que les programmes vérifient bien les conditions de l'énoncé. Si ce n'est pas le cas, nous levant l'exception FormatASTNotOK.
+	Dans nos méthodes, nous vérifions que les programmes vérifient bien les conditions de l'énoncé. Si ce n'est pas le cas, nous levons l'exception FormatASTNotOK.
 	On lève cette exception dans :
 	-interprete0 quand :
 		- il y a trop de déclarations
-		- le but est placé avant le fait (ou il n'y a pas de fait)
+		- le but est placé avant le fait (ou il n'y a pas de fait) // est-ce que cela génère vraiment une erreur?
 		- il n'y a pas qu'un seul but
-	-interprete1 quand :
-		- il y a trop de buts
+	-interprete1 et interprete2 quand :
 		- les DeclAssertion ne sont pas que des faits
 		- il y a deux faits avec le même symbole de prédicat
+	interprete1 lance en plus l'exception quand il y a trop de buts.
+```
+
+```
+	Dans les méthodes d'interprètes, la manière que nous avons de séparer les faits et les buts n'a pas l'air très optimale et est plutôt redondantes. Nous cherchons un meilleur moyen de le faire. Cela pourrait inclure le design pattern Visiteur.
 ```
