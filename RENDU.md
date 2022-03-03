@@ -68,5 +68,9 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 ```
 
 ```
+	Nos fichiers tests .pl se trouvent dans le dossier nommé `tests_jalon_pl`. Dans la classe Jalon1, nous avons ajouté les tests avec tous les fichiers .pl que nous fournissons.
+```
+
+```
 	Dans les méthodes d'interprètes, la manière que nous avons de séparer les faits et les buts n'a pas l'air très optimale et est plutôt redondantes. Nous cherchons un meilleur moyen de le faire. Cela pourrait inclure le design pattern Visiteur.
 ```
