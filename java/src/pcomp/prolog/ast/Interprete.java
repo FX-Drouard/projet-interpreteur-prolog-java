@@ -11,72 +11,62 @@ import pcomp.prolog.parser.PrologParser;
 
 public class Interprete {
 	
-	public static Environnement interprete0(Program ast) throws FormatASTNotOK {
-		// verification que ast contient un seul fait et un seul but
+	public static Environnement interprete0(Program ast) {
+		// récupération des faits et buts
 		List<Decl> decls = ast.getDeclarations();
-		if (decls.size() != 2) {
-			throw new FormatASTNotOK("Program passé à interprete0 non correct, trop de déclarations");
+		VisitorDecl v = new VisitorDecl();
+		for (Decl d : decls) {
+			d.accept(v);
 		}
-		if (!(decls.get(0) instanceof DeclAssertion && decls.get(1) instanceof DeclGoal)) {
-			throw new FormatASTNotOK("Program passé à interprete0 non correct, réessayez en mettant le fait avant le but");
+		List<Predicate> faits = v.getFaits();
+		List<Predicate> buts = v.getButs();
+		
+		// verification que ast contient un seul fait et un seul but
+		if (faits.size() != 1) {
+			throw new IllegalArgumentException("Nombre de faits incorrect. Il n'en faut qu'un.");
 		}
-		DeclAssertion fait = (DeclAssertion)decls.get(0);
-		DeclGoal but = (DeclGoal)decls.get(1);
-		if (but.getPredicates().size() != 1) {
-			throw new FormatASTNotOK("Program passé à interprete0 non correct, il y a plusieurs buts");
+		if (buts.size() != 1) {
+			throw new IllegalArgumentException("Nombre de buts incorrect. Il n'en faut qu'un");
 		}
-		if (!fait.getPredicates().isEmpty()) {
-			throw new FormatASTNotOK("Program passé à interprete0 non correct, le fait doit être indépendant");
-		}
-		Equation eq = new Equation(new TermPredicate(fait.getHead(),fait.getHead().getPosition()),
-				new TermPredicate(but.getPredicates().get(0),but.getPredicates().get(0).getPosition()));
+		
+		// unification
+		Equation eq = new Equation(new TermPredicate(faits.get(0),faits.get(0).getPosition()),
+				new TermPredicate(buts.get(0),buts.get(0).getPosition()));
 		Systeme s = new Systeme();
 		s.addEquation(eq);
 		s.unify();
 		return s.getEnv();
 	}
 	
-	public static Environnement interprete1(Program ast) throws FormatASTNotOK {
+	public static Environnement interprete1(Program ast) {
 		List<Decl> decls = ast.getDeclarations();
-		List<Predicate> faits = new ArrayList<>();
-		List<String> symbols = new ArrayList<>();
-		Predicate but = null;
-		// initialisation des faits et du but
+		
+		// séparation des buts et faits
+		VisitorDecl v = new VisitorDecl();
 		for (Decl d : decls) {
-			if (d instanceof DeclAssertion) {
-				// Vérification qu'on a qu'on a que des faits
-				DeclAssertion head = (DeclAssertion)d;
-				if (head.getPredicates().isEmpty()) {
-					// Vérification qu'on a des faits avec des symboles de prédicats différents
-					if (symbols.contains(head.getHead().getSymbol())) {
-						throw new FormatASTNotOK("Program passé à interprete1 non correct : il n'y a pas un fait par symbole de prédicat");
-					} else {
-						faits.add(head.getHead());
-					}
-				} else {
-					throw new FormatASTNotOK("Program passé à interprete1 non correct : il n'y a pas que des faits");
-				}
-			} else {
-				// Vérification qu'on a qu'un seul but
-				if (but == null) {
-					if (((DeclGoal)d).getPredicates().size() == 1) {
-						but = ((DeclGoal)d).getPredicates().get(0);
-					} else {
-						throw new FormatASTNotOK("Program passé à interprete1 non correct : il n'y a pas un seul but");
-					}
-				} else {
-					//on a déjà un but
-					throw new FormatASTNotOK("Program passé à interprete1 non correct : il n'y a pas un seul but");
-				}
-			}
+			d.accept(v);
 		}
-//		System.out.println("Faits : "+faits);
-//		System.out.println("But : "+but);
+		List<Predicate> faits = v.getFaits();
+		List<Predicate> buts = v.getButs();
+		if (buts.size() != 1) {
+			throw new IllegalArgumentException("Il y a trop de buts. Il n'en faut qu'un.");
+		}
+		// vérification des symboles de faits.
+		List<String> symbols = new ArrayList<>();
+		for (Predicate p : faits) {
+			if (symbols.contains(p.getSymbol())) {
+				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
+			}
+			symbols.add(p.getSymbol());
+		}
+		
 		// recherche du fait avec le bon prédicat
 		for (Predicate p : faits) {
-			if (p.getSymbol().equals(but.getSymbol())) {
+			if (p.getSymbol().equals(buts.get(0).getSymbol())) {
+				
+				// unification
 				Equation eq = new Equation(new TermPredicate(p,p.getPosition()),
-						new TermPredicate(but,but.getPosition()));
+						new TermPredicate(buts.get(0),buts.get(0).getPosition()));
 				Systeme s = new Systeme();
 				s.addEquation(eq);
 				s.unify();
@@ -89,30 +79,22 @@ public class Interprete {
 	
 	public static Environnement interprete2(Program ast) {
 		List<Decl> decls = ast.getDeclarations();
-		List<Predicate> faits = new ArrayList<>();
-		List<String> symbols = new ArrayList<>();
-		List<Predicate> buts = new ArrayList<>();
-		// initialisation des faits et du but
+		
+		// séparation des buts et faits
+		VisitorDecl v = new VisitorDecl();
 		for (Decl d : decls) {
-			if (d instanceof DeclAssertion) {
-				// Vérification qu'on a qu'on a que des faits
-				DeclAssertion head = (DeclAssertion)d;
-				if (head.getPredicates().isEmpty()) {
-					// Vérification qu'on a des faits avec des symboles de prédicats différents
-					if (symbols.contains(head.getHead().getSymbol())) {
-						throw new FormatASTNotOK("Program passé à interprete2 non correct : il n'y a pas un fait par symbole de prédicat");
-					} else {
-						faits.add(head.getHead());
-					}
-				} else {
-					throw new FormatASTNotOK("Program passé à interprete2 non correct : il n'y a pas que des faits");
-				}
-			} else {
-				buts.addAll(((DeclGoal)d).getPredicates());
-			}
+			d.accept(v);
 		}
-//		System.out.println("Faits : "+faits);
-//		System.out.println("But : "+buts);
+		List<Predicate> faits = v.getFaits();
+		List<Predicate> buts = v.getButs();
+		// vérification des symboles de faits.
+		List<String> symbols = new ArrayList<>();
+		for (Predicate p : faits) {
+			if (symbols.contains(p.getSymbol())) {
+				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
+			}
+			symbols.add(p.getSymbol());
+		}
 		
 		//pour tous les buts, on cherche un fait de même symbole
 		Systeme s = new Systeme();

@@ -55,11 +55,11 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 
 ```
 	Nous plaçons les méthodes des différents interprètes une classe "statique" Interprete.
-	Dans nos méthodes, nous vérifions que les programmes vérifient bien les conditions de l'énoncé. Si ce n'est pas le cas, nous levons l'exception FormatASTNotOK.
+	Dans nos méthodes, nous vérifions que les programmes vérifient bien les conditions de l'énoncé. Si ce n'est pas le cas, nous levons l'exception IllegalArgumentException.
 	On lève cette exception dans :
 	-interprete0 quand :
-		- il y a trop de déclarations
-		- le but est placé avant le fait (ou il n'y a pas de fait) // est-ce que cela génère vraiment une erreur?
+		- une DeclAssertion n'est pas un fait
+		- il n'y a pas qu'un seul fait
 		- il n'y a pas qu'un seul but
 	-interprete1 et interprete2 quand :
 		- les DeclAssertion ne sont pas que des faits
@@ -68,9 +68,11 @@ Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une z
 ```
 
 ```
-	Nos fichiers tests .pl se trouvent dans le dossier nommé `tests_jalon_pl`. Dans la classe Jalon1, nous avons ajouté les tests avec tous les fichiers .pl que nous fournissons.
+	Nos fichiers tests .pl se trouvent dans le dossier nommé `tests_jalon_pl`. Dans la classe Jalon1 (du package pcomp.prolog.ast.test), nous avons ajouté les tests avec tous les fichiers .pl que nous fournissons.
+	Nous testons aussi les cas où l'interprete rejetterait le Program passé en paramètres.
 ```
 
 ```
-	Dans les méthodes d'interprètes, la manière que nous avons de séparer les faits et les buts n'a pas l'air très optimale et est plutôt redondantes. Nous cherchons un meilleur moyen de le faire. Cela pourrait inclure le design pattern Visiteur.
+	Dans les méthodes d'interprètes, la manière que nous avons de séparer les faits et les buts n'était pas très optimale et était plutôt redondante. Nous avons donc décidé d'implanter un DeclVisitor que l'on appelle VisitorDecl. Il sépare les faits et buts et construit les listes. La valeur de retour ne nous sert pas encore donc nous avons mis des List<Predicate> par défaut.
+	Ce visiteur pourra être étoffé s'il faut à l'avenir traiter les DeclAssertion qui ne seraient pas des faits.
 ```
