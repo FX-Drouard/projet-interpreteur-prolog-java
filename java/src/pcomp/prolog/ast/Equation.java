@@ -35,7 +35,7 @@ public class Equation {
 		return false;
 	}
 	
-	public boolean decomposer(Systeme s) throws NoSolutionException {
+	public boolean decomposer(Systeme s) {
 		//comparaison des symboles si on a des predicats a gauche et a droite
 		if (gauche instanceof TermPredicate && droite instanceof TermPredicate) {
 			Predicate p1 = ((TermPredicate)gauche).getPredicate();
@@ -57,7 +57,7 @@ public class Equation {
 	}
 	
 	// Applique la regle remplacer sur l'Equation courante avec pour reference l'Equation e passee en parametre
-	public boolean subst(Systeme s, TermVariable x, Term nouv) throws NoSolutionException {
+	public boolean subst(Systeme s, TermVariable x, Term nouv) {
 		// vérification occur_check
 		Equation e = new Equation(x,nouv);
 		e.occur_check();

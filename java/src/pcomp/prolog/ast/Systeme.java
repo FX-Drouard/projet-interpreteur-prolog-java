@@ -61,7 +61,7 @@ public class Systeme {
 	// Regles d'unification
 	///////////////////////////
 	
-	private boolean decomposer() throws NoSolutionException {
+	private boolean decomposer() {
 //		System.out.println("Décomposer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
@@ -106,7 +106,7 @@ public class Systeme {
 		return replaced;
 	}
 	
-	private boolean remplacer() throws NoSolutionException {
+	private boolean remplacer() {
 //		System.out.println("Remplacer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
@@ -127,7 +127,7 @@ public class Systeme {
 		return replaced;
 	}
 	
-	private void subst() throws NoSolutionException {
+	private void subst() {
 //		System.out.println("Substitution?");
 //		env.afficherEnv();
 		// regleapp sert de condition d'arret de notre boucle d'unification
