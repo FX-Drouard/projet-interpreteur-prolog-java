@@ -4,42 +4,42 @@ _Documentation du rendu de projet,Â  remplir._
 
 ## Question 1
 ```
-    Comme nous avons choisi le langage Java, nous allons reprÃ©senter les Ã©quations par une classe Equation qui aura pour attributs deux Terme.
-Ainsi, on pourra reprÃ©senter un systÃ¨me d'Ã©quations par une Collection de l'API Java. Ici, on utilisera les List, plus prÃ©cisÃ©ment les ArrayList afin de dynamiser le remplissage et amÃ©liorer l'efficacitÃ©.
-	Nous crÃ©ons donc une classe Systeme qui implÃ©mentera les rÃªgles d'unification. Chaque mÃ©thode correspondant Ã  une rÃ¨gle est de visibilitÃ© private car elles sont utilisÃ©es uniquement par la mÃ©thode unify.
-	Pour automatiser l'unification du systÃªme d'Ã©quations, nous dÃ©cidons d'essayer d'appliquer chaque rÃ¨gle au systÃ¨me entier dans un ordre arbitraire.
+    Comme nous avons choisi le langage Java, nous allons représenter les équations par une classe Equation qui aura pour attributs deux Terme.
+Ainsi, on pourra représenter un systême d'équations par une Collection de l'API Java. Ici, on utilisera les List, plus précisément les ArrayList afin de dynamiser le remplissage et améliorer l'efficacité.
+	Nous créons donc une classe Systeme qui implémentera les règles d'unification. Chaque méthode correspondant à une règle est de visibilité private car elles sont utilisées uniquement par la méthode unify.
+	Pour automatiser l'unification du système d'équations, nous décidons d'essayer d'appliquer chaque règle au système entier dans un ordre arbitraire.
 ```
 
 ## Question 2
 ```
-	Notre fonction occur_check est implÃ©mentÃ©e dans la classe Equation. Elle est de visibilitÃ© private car elle n'est appelÃ©e que localement dans la fonction formatROK. Cette fonction renvoie true si l'instance d'Equation est une bonne candidate pour appliquer la rÃ¨gle remplacer. C'est-Ã -dire que son Term gauche est une instance de TermVariable.
-	occur_check utiise un TermVisitor, VisitorVar qui renvoie la liste des variables trouvÃ©es dans un Term.
-Ainsi, elle lÃ¨ve l'exception NoSolutionException dans le cas oÃ¹ une variable qui se trouve dans le Term gauche est dans le Term droit d'une Equation. Cette Exception est rattrappÃ©e le plus tard possible, c'est-Ã -dire dans la mÃ©thode unify de la classe Systeme, ce qui nous permet de mettre fin Ã  la boucle d'unify.
+	Notre fonction occur_check est implémentée dans la classe Equation. Elle est de visibilité private car elle n'est appelée que localement dans la fonction formatROK. Cette fonction renvoie true si l'instance d'Equation est une bonne candidate pour appliquer la règle remplacer. C'est-à-dire que son Term gauche est une instance de TermVariable.
+	occur_check utiise un TermVisitor, VisitorVar qui renvoie la liste des variables trouvées dans un Term.
+Ainsi, elle lève l'exception NoSolutionException dans le cas où une variable qui se trouve dans le Term gauche est dans le Term droit d'une Equation. Cette Exception est rattrappée le plus tard possible, c'est-à-dire dans la méthode unify de la classe Systeme, ce qui nous permet de mettre fin à la boucle d'unify.
 ```
 
 ## Question 3
 ```
-	Pour l'environnement, nous l'implÃ©mentons Ã  l'aide d'une Map Java. Cela nous permet d'associer un TermVariable unique a un Term. Nous ajoutons cet environnement comme attribut Ã  notre classe Systeme afin d'allÃ©ger l'Ã©criture des algorithmes suivants.
+	Pour l'environnement, nous l'implémentons à l'aide d'une Map Java. Cela nous permet d'associer un TermVariable unique a un Term. Nous ajoutons cet environnement comme attribut à notre classe Systeme afin d'alléger l'écriture des algorithmes suivants.
 ```
 
 ## Question 4
 ```
-	La substitution d'une variable dans une Equation est dÃ©lÃ©guÃ© Ã  la classe Equation qui prend un TermVariable Ã  remplacer et le Term correspondant. Cette mÃ©thode secondaire est appelÃ©e pour toutes les variables contenues dans l'environnement liÃ© au systÃ¨me passÃ© en paramÃ¨tre.
+	La substitution d'une variable dans une Equation est délégué à la classe Equation qui prend un TermVariable à remplacer et le Term correspondant. Cette méthode secondaire est appelée pour toutes les variables contenues dans l'environnement lié au système passé en paramètre.
 ```
 
 ## Question 5
 ```
-	Notre algorithme unify est une mÃ©thode d'instance propre Ã  un objet Systeme contenant des Ã©quations et un environnement. Il prend donc implicitement en paramÃ¨tre ces deux Ã©lÃ©ments.
-Pour appliquer l'algorithme d'unification sur un systÃ¨me d'Ã©quation, il faut donc dans un premier temps instancier un Systeme et remplir son environnement et ses Ã©quations.
+	Notre algorithme unify est une méthode d'instance propre à un objet Systeme contenant des équations et un environnement. Il prend donc implicitement en paramètre ces deux éléments.
+Pour appliquer l'algorithme d'unification sur un système d'équation, il faut donc dans un premier temps instancier un Systeme et remplir son environnement et ses équations.
 ```
 
 
 ## Conclusion :
 
 ```
-	Dans ce premier jalon, nous avons implantÃ© l'unification d'un systÃ¨me d'Ã©quations et le debut d'un affichage graphique.
-Dans un premier temps, nous avons choisi d'implÃ©menter la rÃ¨gle subst (remplacer) sans utiliser le Design Pattern Visiteur car nous voulions changer directement les TermVariable sans dans les objets concernÃ©s : Equation et TermPredicat en tant qu'argument. Mais son comportement quasi similaire nous fait douter de l'implÃ©mentation de cette rÃ¨gle. Nous la modifierons sûrement plus tard dans le projet.
-Dans un second temps nous avons crÃ©Ã© une interface graphique simple avec une zone d'Ã©dition de texte et un system de chargement/sauvegarde de la zone d'Ã©dition qui utilise un lecteur de fichier simple et utilise le parser donnÃ© dans le projet. Nous amÃ©liorerons cette interface avec le temps.
+	Dans ce premier jalon, nous avons implanté l'unification d'un système d'équations et le debut d'un affichage graphique.
+Dans un premier temps, nous avons choisi d'implémenter la règle subst (remplacer) sans utiliser le Design Pattern Visiteur car nous voulions changer directement les TermVariable sans dans les objets concernés : Equation et TermPredicat en tant qu'argument. Mais son comportement quasi similaire nous fait douter de l'implémentation de cette règle. Nous la modifierons sûrement plus tard dans le projet.
+Dans un second temps nous avons créé une interface graphique simple avec une zone d'édition de texte et un systeme de chargement/sauvegarde de la zone d'édition qui utilise un lecteur de fichier simple et utilise le parser donné dans le projet. Nous améliorerons cette interface avec le temps.
 
 	Pour exécuter ce Jalon, il suffit d'exécuter la classe MainUnification qui contient tous les exemples de l'exercice 7 du TD4 concernant l'unification. La vérification du bon fonctionnement des fonctions se base sur les affichages du système d'équations et de l'environnement à chaque règle appliquée.
 	Nous avons rencontré des difficultés concernant l'implantation de la règle remplacer. Comme nous l'avons dit précédemment, nous avons des doutes sur l'efficacité de nos méthodes.
