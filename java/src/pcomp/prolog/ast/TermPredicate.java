@@ -75,4 +75,8 @@ public class TermPredicate implements Term {
 	public boolean subst(TermVariable x, Term nouv) {
 		return pred.subst(x, nouv);
 	}
+	
+	public TermPredicate rename(int n) {
+		return pred.rename(n);
+	}
 }

@@ -7,6 +7,7 @@
 
 package pcomp.prolog.ast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -120,5 +121,14 @@ public class Predicate {
 			}
 		}
 		return replaced;
+	}
+	
+	public TermPredicate rename(int n) {
+		VisitorRename v = new VisitorRename(n);
+		List<Term> nouvArgs = new ArrayList<>();
+		for (int i=0;i<args.size();i++) {
+			nouvArgs.add(i, args.get(i).accept(v));
+		}
+		return new TermPredicate(new Predicate(symbol,nouvArgs,pos),pos);
 	}
 }

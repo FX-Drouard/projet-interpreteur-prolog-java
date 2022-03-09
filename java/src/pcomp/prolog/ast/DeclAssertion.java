@@ -7,6 +7,7 @@
 
 package pcomp.prolog.ast;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -81,5 +82,17 @@ public class DeclAssertion implements Decl {
 
 	@Override public <T> T accept(DeclVisitor<T> visitor) {
 		return visitor.visit(this);
+	}
+	
+	// Autres méthodes
+	//////////////////////
+	
+	public DeclAssertion rename(int n) {
+		Predicate nouvH = head.rename(n).getPredicate();
+		List<Predicate> nouvB = new ArrayList<>();
+		for (Predicate p : preds) {
+			nouvB.add(p.rename(n).getPredicate());
+		}
+		return new DeclAssertion(nouvH,nouvB,pos);
 	}
 }
