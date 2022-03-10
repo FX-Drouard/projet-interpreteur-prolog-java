@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Map;
 
 import pcomp.prolog.ast.excep.FormatASTNotOK;
+import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
 public class Interprete {
+	
+	// Interpretes
+	//////////////////
 	
 	public static Environnement interprete0(Program ast) {
 		// récupération des faits et buts
@@ -111,5 +115,26 @@ public class Interprete {
 		s.unify();
 		return s.getEnv();
 	}
-
+	
+	// Algorithmes
+	////////////////
+	
+	public static Environnement choose(int n, Environnement v, Predicate but, List<DeclAssertion> rules, List<Predicate> nouvGoals) {
+		for (DeclAssertion d : rules) {
+			if (!(d.getPredicates().isEmpty()) && d.getHead().getSymbol().equals(but.getSymbol())) {
+				// on match, donc on renomme
+				DeclAssertion renamed = d.rename(n);
+				Systeme s = new Systeme();
+				s.addEquation(new Equation(
+						new TermPredicate(renamed.getHead(),renamed.getPosition()),
+						new TermPredicate(but,but.getPosition())));
+				s.unify();
+				nouvGoals.addAll(renamed.getPredicates());
+				return s.getEnv();
+			}
+		}
+		throw new NoSolutionException("pas d'environnement correspondant pour le but "+but);
+	}
+	
+	
 }

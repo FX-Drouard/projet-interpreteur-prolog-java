@@ -76,3 +76,16 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 	Dans les méthodes d'interprètes, la manière que nous avons de séparer les faits et les buts n'était pas très optimale et était plutôt redondante. Nous avons donc décidé d'implanter un DeclVisitor que l'on appelle VisitorDecl. Il sépare les faits et buts et construit les listes. La valeur de retour ne nous sert pas encore donc nous avons mis des List<Predicate> par défaut.
 	Ce visiteur pourra être étoffé s'il faut à l'avenir traiter les DeclAssertion qui ne seraient pas des faits.
 ```
+
+#Jalon 3
+```
+	Nous avons déplacé les classes exécutables correspondant aux Jalons dans le package principal pcomp.prolog.ast afin de les mettre davantage en évidence.
+```
+
+```
+	Pour la méthode rename que l'on place dans la classe DeclAssertion, nous implémentons un autre TermVisitor qui nous renvoie un nouveau Term avec les variables renommées. La méthode principale délègue le renommage des variables au Predicate qui utilise le visiteur décrit précédemment.
+```
+
+```
+	Notre méthode choose, pour le moment private, est placée dans notre classe statique Interprete car elle sert à l'implantation de la méthode interprete3.
+```

@@ -1,4 +1,4 @@
-package pcomp.prolog.ast.test;
+package pcomp.prolog;
 
 import java.io.IOException;
 import java.util.ArrayList;
