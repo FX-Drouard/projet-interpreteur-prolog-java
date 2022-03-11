@@ -30,17 +30,13 @@ public class MainTestJalon3 {
 		System.out.println(renamed);
 		
 		// test de choose
-		List<DeclAssertion> asserts = new ArrayList<>(); 
 		List<Predicate> nouvGoals = new ArrayList<>();
-		VisitorDecl v = new VisitorDecl();
+		VisitorDecl v = new VisitorDecl(false);
 		for (Decl d : decls) {
-			try {
-				d.accept(v);
-			} catch (IllegalArgumentException e) {
-				asserts.add((DeclAssertion) d);
-			}
+			d.accept(v);
 		}
-		Environnement env = Interprete.choose(n, new Environnement(), v.getButs().get(0), asserts, nouvGoals);
+		
+		Environnement env = Interprete.choose(n, new Environnement(), v.getButs().get(0), v.getReglesCond(), nouvGoals);
 		System.out.println(nouvGoals);
 		env.afficherEnv();
 	}

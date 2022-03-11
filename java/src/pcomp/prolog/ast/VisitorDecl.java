@@ -8,6 +8,17 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 	
 	private List<Predicate> buts = new ArrayList<>();
 	private List<Predicate> faits = new ArrayList<>();
+	private List<DeclAssertion> rcond = new ArrayList<>();
+	// pour lancer l'exception que dans le cas des premiers interpretes
+	private boolean faitsOnly;
+	
+	public VisitorDecl(boolean faitsOnly) {
+		this.faitsOnly = faitsOnly;
+	}
+	
+	public VisitorDecl() {
+		this(true);
+	}
 
 	@Override
 	public List<Predicate> visit(DeclAssertion a) {
@@ -15,7 +26,11 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 		if (a.getPredicates().isEmpty()) {
 			faits.add(a.getHead());
 		} else {
-			throw new IllegalArgumentException("Il n'a pas que des faits.");
+			if (faitsOnly) {
+				throw new IllegalArgumentException("Il n'a pas que des faits.");
+			} else {
+				rcond.add(a);
+			}
 		}
 		return faits;
 	}
@@ -32,6 +47,10 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 	
 	public List<Predicate> getButs() {
 		return buts;
+	}
+	
+	public List<DeclAssertion> getReglesCond() {
+		return rcond;
 	}
 
 }
