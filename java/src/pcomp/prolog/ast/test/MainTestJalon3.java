@@ -36,7 +36,12 @@ public class MainTestJalon3 {
 			d.accept(v);
 		}
 		
-		Environnement env = Interprete.choose(n, new Environnement(), v.getButs().get(0), v.getReglesCond(), nouvGoals);
+		// Environnement non vide
+//		Program prog2 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
+//		Environnement e = Interprete.interprete0(prog2);
+//		e.afficherEnv();
+		Environnement e = new Environnement();
+		Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getReglesCond(), nouvGoals);
 		System.out.println(nouvGoals);
 		env.afficherEnv();
 	}

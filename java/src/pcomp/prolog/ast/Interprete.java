@@ -125,6 +125,7 @@ public class Interprete {
 				// on match, donc on renomme
 				DeclAssertion renamed = d.rename(n);
 				Systeme s = new Systeme();
+				s.setEnv(v);
 				s.addEquation(new Equation(
 						new TermPredicate(renamed.getHead(),renamed.getPosition()),
 						new TermPredicate(but,but.getPosition())));

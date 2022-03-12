@@ -58,6 +58,11 @@ public class Systeme {
 		return env;
 	}
 	
+	// Setter
+	public void setEnv(Environnement e) {
+		env = e;
+	}
+	
 	// Regles d'unification
 	///////////////////////////
 	
