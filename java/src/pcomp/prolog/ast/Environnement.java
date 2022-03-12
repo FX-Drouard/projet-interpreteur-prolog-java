@@ -22,7 +22,15 @@ public class Environnement {
 	public void clear() {
 		env.clear();
 	}
+	
+	public boolean isEmpty() {
+		return env.isEmpty();
+	}
 
+	public String toString() {
+		return "Environnement : "+env.toString();
+	}
+	
 	public void afficherEnv() {
 		System.out.println("Environnement :");
 		for (TermVariable key : env.keySet()) {
@@ -31,5 +39,13 @@ public class Environnement {
 		if (env.isEmpty()) {
 			System.out.println("Pas d'environnement");
 		}
+	}
+	
+	public Environnement copy() {
+		Environnement res = new Environnement();
+		for (TermVariable var : env.keySet()) {
+			res.addEnv(new Equation(var,env.get(var)));
+		}
+		return res;
 	}
 }

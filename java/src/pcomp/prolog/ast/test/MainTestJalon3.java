@@ -11,6 +11,7 @@ import pcomp.prolog.ast.Interprete;
 import pcomp.prolog.ast.Predicate;
 import pcomp.prolog.ast.Program;
 import pcomp.prolog.ast.VisitorDecl;
+import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
 public class MainTestJalon3 {
@@ -35,15 +36,30 @@ public class MainTestJalon3 {
 		for (Decl d : decls) {
 			d.accept(v);
 		}
+		//System.out.println(v.getReglesCond());
 		
 		// Environnement non vide
 //		Program prog2 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
 //		Environnement e = Interprete.interprete0(prog2);
 //		e.afficherEnv();
-		Environnement e = new Environnement();
-		Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getReglesCond(), nouvGoals);
-		System.out.println(nouvGoals);
-		env.afficherEnv();
+//		Environnement e = new Environnement();
+//		try {
+//			Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getRegles(), nouvGoals);
+//			System.out.println("goals : "+nouvGoals);
+//			env.afficherEnv();
+//		} catch (NoSolutionException excep) {
+//			System.out.println(excep);
+//		}
+		
+		//solve
+		try {
+			Environnement env = Interprete.solve(v.getButs(), v.getRegles());
+			System.out.println(env);
+		} catch (NoSolutionException excep) {
+			System.out.println(prog1);
+			System.out.println(excep);
+		}
+		
 	}
 
 }

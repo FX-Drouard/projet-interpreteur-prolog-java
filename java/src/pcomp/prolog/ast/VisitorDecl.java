@@ -8,7 +8,7 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 	
 	private List<Predicate> buts = new ArrayList<>();
 	private List<Predicate> faits = new ArrayList<>();
-	private List<DeclAssertion> rcond = new ArrayList<>();
+	private List<DeclAssertion> regles = new ArrayList<>();
 	// pour lancer l'exception que dans le cas des premiers interpretes
 	private boolean faitsOnly;
 	
@@ -28,10 +28,9 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 		} else {
 			if (faitsOnly) {
 				throw new IllegalArgumentException("Il n'a pas que des faits.");
-			} else {
-				rcond.add(a);
 			}
 		}
+		regles.add(a);
 		return faits;
 	}
 
@@ -49,8 +48,8 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 		return buts;
 	}
 	
-	public List<DeclAssertion> getReglesCond() {
-		return rcond;
+	public List<DeclAssertion> getRegles() {
+		return regles;
 	}
 
 }

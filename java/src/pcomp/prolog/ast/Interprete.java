@@ -120,21 +120,42 @@ public class Interprete {
 	////////////////
 	
 	public static Environnement choose(int n, Environnement v, Predicate but, List<DeclAssertion> rules, List<Predicate> nouvGoals) {
-		for (DeclAssertion d : rules) {
-			if (!(d.getPredicates().isEmpty()) && d.getHead().getSymbol().equals(but.getSymbol())) {
+		// hypothèse : rules ne contient pas de buts. Ils ne seront pas pris en compte
+		//choose fait aussi l'unification pour les faits
+		VisitorDecl separator = new VisitorDecl(false);
+		for (Decl d : rules) {
+			d.accept(separator);
+		}
+		List<DeclAssertion> hb = separator.getRegles();
+		for (DeclAssertion d : hb) {
+			if (d.getHead().getSymbol().equals(but.getSymbol())) {
 				// on match, donc on renomme
 				DeclAssertion renamed = d.rename(n);
 				Systeme s = new Systeme();
-				s.setEnv(v);
+				s.setEnv(v.copy()); // copie de l'environnement pour ne pas modifier celui passé en paramètre
 				s.addEquation(new Equation(
 						new TermPredicate(renamed.getHead(),renamed.getPosition()),
 						new TermPredicate(but,but.getPosition())));
 				s.unify();
-				nouvGoals.addAll(renamed.getPredicates());
-				return s.getEnv();
+				if (!s.getEnv().isEmpty()) {
+					nouvGoals.addAll(renamed.getPredicates());
+					return s.getEnv();
+				}
 			}
 		}
 		throw new NoSolutionException("pas d'environnement correspondant pour le but "+but);
+	}
+	
+	public static Environnement solve(List<Predicate> goals, List<DeclAssertion> rules) {
+		Environnement res = new Environnement();
+		List<Predicate> nouvGoals = new ArrayList<>();
+		int cpt = 1;
+		while (!goals.isEmpty()) {
+			System.out.println("Buts à vérifier : "+goals);
+			res = choose(cpt,res,goals.get(0),rules,goals);
+			goals.remove(0);
+		}
+		return res;
 	}
 	
 	
