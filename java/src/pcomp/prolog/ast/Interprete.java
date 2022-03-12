@@ -154,6 +154,7 @@ public class Interprete {
 			System.out.println("Buts à vérifier : "+goals);
 			res = choose(cpt,res,goals.get(0),rules,goals);
 			goals.remove(0);
+			cpt++;
 		}
 		return res;
 	}
