@@ -116,6 +116,29 @@ public class Interprete {
 		return s.getEnv();
 	}
 	
+	public static Environnement interprete3(Program ast) {
+		// séparation des buts et regles
+		VisitorDecl v = new VisitorDecl(false);
+		List<Decl> decls = ast.getDeclarations();
+		for (Decl d : decls) {
+			d.accept(v);
+		}
+		List<Predicate> goals = v.getButs();
+		List<DeclAssertion> rules = v.getRegles();
+		
+		// vérification qu'il y a qu'une regle par symbole de prédicat
+		List<String> symbols = new ArrayList<>();
+		for (DeclAssertion r : rules) {
+			if (symbols.contains(r.getHead().getSymbol())) {
+				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
+			}
+			symbols.add(r.getHead().getSymbol());
+		}
+		
+		// résolution :
+		return solve(goals,rules);
+	}
+	
 	// Algorithmes
 	////////////////
 	
