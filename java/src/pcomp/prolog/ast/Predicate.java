@@ -123,6 +123,7 @@ public class Predicate {
 		return replaced;
 	}
 	
+	// renomme les variables dans les arguments du prédicat
 	public TermPredicate rename(int n) {
 		VisitorRename v = new VisitorRename(n);
 		List<Term> nouvArgs = new ArrayList<>();

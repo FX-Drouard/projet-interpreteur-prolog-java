@@ -87,8 +87,11 @@ public class DeclAssertion implements Decl {
 	// Autres méthodes
 	//////////////////////
 	
+	// Renvoie une DeclAssertion avec ses variables renommées.
 	public DeclAssertion rename(int n) {
+		// renomme head
 		Predicate nouvH = head.rename(n).getPredicate();
+		// renomme body
 		List<Predicate> nouvB = new ArrayList<>();
 		for (Predicate p : preds) {
 			nouvB.add(p.rename(n).getPredicate());

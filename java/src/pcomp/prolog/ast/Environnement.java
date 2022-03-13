@@ -8,7 +8,7 @@ public class Environnement {
 	private Map<TermVariable,Term> env = new HashMap<>();
 	
 	// Methodes pour gerer l'environnement
-		/////////////////////////////////////////////
+	/////////////////////////////////////////////
 		
 	public void addEnv(Equation e) {
 		TermVariable key = (TermVariable)e.getGauche();
@@ -41,6 +41,7 @@ public class Environnement {
 		}
 	}
 	
+	// renvoie un nouvel environnement avec les mêmes termes
 	public Environnement copy() {
 		Environnement res = new Environnement();
 		for (TermVariable var : env.keySet()) {

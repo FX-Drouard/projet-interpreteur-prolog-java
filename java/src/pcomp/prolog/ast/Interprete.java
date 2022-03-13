@@ -171,7 +171,6 @@ public class Interprete {
 	
 	public static Environnement solve(List<Predicate> goals, List<DeclAssertion> rules) {
 		Environnement res = new Environnement();
-		List<Predicate> nouvGoals = new ArrayList<>();
 		int cpt = 1;
 		while (!goals.isEmpty()) {
 			System.out.println("Buts à vérifier : "+goals);

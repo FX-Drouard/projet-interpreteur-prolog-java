@@ -95,11 +95,12 @@ public class Equation {
 		return false;
 	}
 	
+	// vérifie que les termes d'une Equation peut être mise dans un Environnement
 	public boolean formatROK() throws NoSolutionException {
 		return gauche instanceof TermVariable && !occur_check();
 	}
 	
-	// Methodes usuelles
+	//Getters
 	
 	public Term getDroite() {
 		return droite;
@@ -108,6 +109,9 @@ public class Equation {
 	public Term getGauche() {
 		return gauche;
 	}
+	
+
+	// Methodes usuelles
 	
 	@Override
 	public String toString() {

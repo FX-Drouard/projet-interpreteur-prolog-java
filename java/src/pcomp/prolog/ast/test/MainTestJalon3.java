@@ -42,14 +42,14 @@ public class MainTestJalon3 {
 //		Program prog2 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
 //		Environnement e = Interprete.interprete0(prog2);
 //		e.afficherEnv();
-//		Environnement e = new Environnement();
-//		try {
-//			Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getRegles(), nouvGoals);
-//			System.out.println("goals : "+nouvGoals);
-//			env.afficherEnv();
-//		} catch (NoSolutionException excep) {
-//			System.out.println(excep);
-//		}
+		Environnement e = new Environnement();
+		try {
+			Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getRegles(), nouvGoals);
+			System.out.println("goals : "+nouvGoals);
+			env.afficherEnv();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 		
 		//solve
 		try {

@@ -80,10 +80,12 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 #Jalon 3
 ```
 	Nous avons déplacé les classes exécutables correspondant aux Jalons dans le package principal pcomp.prolog.ast afin de les mettre davantage en évidence.
+	Celui correspondant à ce Jalon est 'Jalon3'. Dans le main de cette classe, nous testons notre méthode interprete3 avec les fichiers tests .pl que l'on avons mis avec les autres, dans le dossier 'tests_jalon_pl'.
 ```
 
 ```
 	Pour la méthode rename que l'on place dans la classe DeclAssertion, nous implémentons un autre TermVisitor qui nous renvoie un nouveau Term avec les variables renommées. La méthode principale délègue le renommage des variables au Predicate qui utilise le visiteur décrit précédemment.
+	Pour la substitution des variables, nous pouvons faire un visiteur similaire. Il sera sûrement implanté au cours d'un Jalon ultérieur.
 ```
 
 ```

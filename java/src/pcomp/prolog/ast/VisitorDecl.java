@@ -40,6 +40,8 @@ public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 		return buts;
 	}
 	
+	// Getters
+	
 	public List<Predicate> getFaits() {
 		return faits;
 	}
