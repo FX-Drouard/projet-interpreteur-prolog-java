@@ -87,5 +87,14 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 ```
 
 ```
-	Notre méthode choose, pour le moment private, est placée dans notre classe statique Interprete car elle sert à l'implantation de la méthode interprete3.
+	Nos méthodes choose et solve, pour le moment public, sont placées dans notre classe statique Interprete. Ces méthodes peuvent aussi être de visibilité private car elles ne servent qu'à l'implantation de la méthode interprete3. Néanmoins, les premiers tests effectués sur ces méthodes se trouvant dans une autre classe MainTestJalon3, nous les conservons public jusqu'au grand nettoyage.
+	Comme nous pensons que l'interprete3 doit pouvoir résoudre les AST qui ne contiennent pas que des Assertion(head, body) avec body non vide, nous généralisons la résolution à tous les DeclAssertion, c'est pour cela que nous passons une List<DeclAssertion> pour le paramètre rules, qui contiendra par la suite toutes les DeclAssertion de l'AST.
+```
+
+```
+	Notre VisitorDecl a été modifié pour pouvoir l'utiliser même dans le cas où l'AST contiendrait des règles conditionnelles "Assertion (head,body)". Pour ne pas changer l'algorithme des interprètes implémantés précédemment, c'est-à-dire pour qu'ils lancent toujours IllegalArgumentException dans le cas où l'AST passé en paramètre ne contient pas seulement des faits et des buts, nous surchargeons le constructeur du Visiteur avec l'initialisation d'un boolean qui indiquera si on prend, ou non, les Assertion(head,body) avec body non vide.
+```
+
+```
+	Nous remarquons que l'Environnement renvoyé contient beaucoup de variables à cause du renommage. Nous nous demandons donc s'il ne serait pas meilleur de "nettoyer" l'Environnement avant son affichage en faisant les substitution possible pour ne conserver que les variables qui seraient pertinentes.
 ```

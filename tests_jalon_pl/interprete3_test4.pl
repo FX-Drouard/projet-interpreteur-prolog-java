@@ -1,7 +1,7 @@
 vote(X,Y) :- majeur(X),nationalite(X,Y).
 majeur(X) :- personne(X).
-pays(coree).
+pays(france).
 nationalite(X,Y) :- personne(X), pays(Y).
-personne(chan).
+personne(camille).
 
 ?- vote(X,Y).
