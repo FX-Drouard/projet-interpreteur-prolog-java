@@ -45,5 +45,8 @@ public class Etat {
 		}
 	}
 	
+	public Environnement getEnv() {
+		return env.copy();
+	}
 	
 }
