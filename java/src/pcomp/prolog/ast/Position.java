@@ -32,4 +32,8 @@ public class Position {
 	public String toString() {
 		return line + ":" + column;
 	}
+	
+	public Position copy() {
+		return new Position(this.line, this.column);
+	}
 }

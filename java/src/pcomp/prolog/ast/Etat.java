@@ -8,9 +8,11 @@ import pcomp.prolog.ast.excep.NotInListException;
 
 public class Etat {
 	private Environnement env;
+	private Equation eq;
 	private List<String> state;
-	public Etat(Environnement env) {
+	public Etat(Environnement env, Equation eq) {
 		this.env=env.copy();
+		this.eq=eq;
 		this.state=new ArrayList<String>();
 	}
 	
@@ -47,6 +49,9 @@ public class Etat {
 	
 	public Environnement getEnv() {
 		return env.copy();
+	}
+	public Equation getEq() {
+		return eq.copy();
 	}
 	
 }

@@ -126,5 +126,9 @@ public class Equation {
 		}
 		return false;
 	}
+	
+	public Equation copy() {
+		return new Equation(this.gauche.copy(),this.droite.copy());
+	}
 
 }

@@ -79,4 +79,9 @@ public class TermPredicate implements Term {
 	public TermPredicate rename(int n) {
 		return pred.rename(n);
 	}
+	
+	public TermPredicate copy() {
+		return new TermPredicate(this.pred.copy(),this.pos.copy());
+		
+	}
 }

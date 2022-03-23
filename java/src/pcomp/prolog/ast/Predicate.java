@@ -132,4 +132,12 @@ public class Predicate {
 		}
 		return new TermPredicate(new Predicate(symbol,nouvArgs,pos),pos);
 	}
+	
+	public Predicate copy() {
+		List<Term> res=new ArrayList<>();
+		for (int i=0;i<args.size();i++) {
+			res.add(args.get(i).copy());
+		}
+		return new Predicate(symbol, res, pos.copy());
+	}
 }

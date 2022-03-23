@@ -19,4 +19,6 @@ public interface Term {
 
 	// Interface du visiteur de termes.
 	public <T> T accept(TermVisitor<T> visitor);
+	
+	Term copy();
 }

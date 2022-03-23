@@ -70,4 +70,11 @@ public class TermVariable implements Term {
 	@Override public <T> T accept(TermVisitor<T> visitor) {
 		return visitor.visit(this);
 	}
+
+
+	@Override
+	public TermVariable copy() {
+		return new TermVariable(this.name,this.pos.copy());
+
+	}
 }
