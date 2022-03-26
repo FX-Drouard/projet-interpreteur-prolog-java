@@ -100,3 +100,15 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 ```
 	Nous remarquons que l'Environnement renvoyé contient beaucoup de variables à cause du renommage. Nous nous demandons donc s'il ne serait pas meilleur de "nettoyer" l'Environnement avant son affichage en faisant les substitution possible pour ne conserver que les variables qui seraient pertinentes.
 ```
+
+#Jalon 4
+
+```
+	Pour représenter un choix, nous implémentons la classe CurrContext. Dans une instance, nous conservons l'Environnement résultant du choix, les règles à explorer et les buts qu'il reste à résoudre. Dans l'attribut choix, nous précisons la règle choisie.
+	Une suite de choix sera donc représentée par une List<CurrContext> se comportant comme une pile. Le choix le plus récent sera à la position size()-1 de la liste et le plus ancien sera à la position 0.
+	Pour afficher une suite de choix, nous implémentons la méthode statique afficheListChoices dans la classe CurrContext qui utilise la méthode afficheChoice qui affiche le choix effectué.
+```
+
+```
+	La méthode solve demandée dans ce Jalon est implantée dans la classe Interprete.
+```

@@ -143,14 +143,8 @@ public class Interprete {
 	////////////////
 	
 	public static Environnement choose(int n, Environnement v, Predicate but, List<DeclAssertion> rules, List<Predicate> nouvGoals) {
-		// hypothèse : rules ne contient pas de buts. Ils ne seront pas pris en compte
 		//choose fait aussi l'unification pour les faits
-		VisitorDecl separator = new VisitorDecl(false);
-		for (Decl d : rules) {
-			d.accept(separator);
-		}
-		List<DeclAssertion> hb = separator.getRegles();
-		for (DeclAssertion d : hb) {
+		for (DeclAssertion d : rules) {
 			if (d.getHead().getSymbol().equals(but.getSymbol())) {
 				// on match, donc on renomme
 				DeclAssertion renamed = d.rename(n);
@@ -181,5 +175,11 @@ public class Interprete {
 		return res;
 	}
 	
-	
+	public static Environnement solve(List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+		Environnement res = new Environnement();
+		List<Predicate> tmpGoals = new ArrayList<>();
+		tmpGoals.add(goals.get(0));
+		res = solve(tmpGoals,rules);
+		return res;
+	}
 }
