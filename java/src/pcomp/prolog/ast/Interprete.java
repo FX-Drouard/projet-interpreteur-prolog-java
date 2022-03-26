@@ -177,9 +177,22 @@ public class Interprete {
 	
 	public static Environnement solve(List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		Environnement res = new Environnement();
-		List<Predicate> tmpGoals = new ArrayList<>();
-		tmpGoals.add(goals.get(0));
-		res = solve(tmpGoals,rules);
+		//si goals non vide :
+			//on prend le premier but de la liste goals
+			//parcourt de rules
+				//si on peut unifier :
+					//on renomme
+					//on unifie le head !!!!! ne pas oublier de mettre une copie de l'environnement !!!!
+					//si il y a une solution :
+						//création d'un CurrContext avec :
+						//la regle avec laquelle on a unifié
+						//les nouveaux buts (s'il y en a) ajoutés à goals
+						//la même liste des règles
+						//on empile dans ch
+						//on fait un appel récursif avec ch, les données du CurrContext créé !!!! encadré par try catch !!!!
+				//si on n'a pas pu trouver un bon match -> on revient au CurrContext précédent
+		//on retourne l'environnement du dernier CurrContext s'il y en a
+		//sinon, on lance une exception
 		return res;
 	}
 }

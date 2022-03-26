@@ -17,6 +17,7 @@ public class CurrContext {
 	public CurrContext(DeclAssertion choice, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		this.choice = choice;
 		// on enregistre que des copies des listes
+		// question : est-ce que les copies sont faites lors de la création ou pendant(=dans le constructeur) pour goals?
 		List<Predicate> g = new ArrayList<>();
 		for (Predicate elem : goals) {
 			g.add(elem);
