@@ -1,5 +1,6 @@
 package pcomp.prolog.ast;
 
+import java.awt.Choice;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.ast.excep.NoSolutionException;
+import pcomp.prolog.ast.excep.SolutionFound;
 import pcomp.prolog.parser.PrologParser;
 
 public class Interprete {
@@ -38,7 +40,13 @@ public class Interprete {
 				new TermPredicate(buts.get(0),buts.get(0).getPosition()));
 		Systeme s = new Systeme();
 		s.addEquation(eq);
-		s.unify();
+		try {
+			s.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+			return new Environnement();
+		}
+		
 		return s.getEnv();
 	}
 	
@@ -73,7 +81,12 @@ public class Interprete {
 						new TermPredicate(buts.get(0),buts.get(0).getPosition()));
 				Systeme s = new Systeme();
 				s.addEquation(eq);
-				s.unify();
+				try {
+					s.unify();
+				} catch (NoSolutionException excep) {
+					System.out.println(excep);
+					return new Environnement();
+				}
 				return s.getEnv();
 			}
 		}
@@ -112,7 +125,12 @@ public class Interprete {
 			}
 		}
 		s.afficherSysteme();
-		s.unify();
+		try {
+			s.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+			return new Environnement();
+		}
 		return s.getEnv();
 	}
 	
@@ -153,11 +171,14 @@ public class Interprete {
 				s.addEquation(new Equation(
 						new TermPredicate(renamed.getHead(),renamed.getPosition()),
 						new TermPredicate(but,but.getPosition())));
-				s.unify();
-				if (!s.getEnv().isEmpty()) {
-					nouvGoals.addAll(renamed.getPredicates());
-					return s.getEnv();
+				try {
+					s.unify();
+				} catch (NoSolutionException excep) {
+					System.out.println(excep);
+					return new Environnement();
 				}
+				nouvGoals.addAll(renamed.getPredicates());
+				return s.getEnv();
 			}
 		}
 		throw new NoSolutionException("pas d'environnement correspondant pour le but "+but);
@@ -175,24 +196,82 @@ public class Interprete {
 		return res;
 	}
 	
-	public static Environnement solve(List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
-		Environnement res = new Environnement();
+	private static void choose(int cpt, List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		//si goals non vide :
-			//on prend le premier but de la liste goals
-			//parcourt de rules
-				//si on peut unifier :
-					//on renomme
-					//on unifie le head !!!!! ne pas oublier de mettre une copie de l'environnement !!!!
-					//si il y a une solution :
-						//création d'un CurrContext avec :
-						//la regle avec laquelle on a unifié
-						//les nouveaux buts (s'il y en a) ajoutés à goals
-						//la même liste des règles
-						//on empile dans ch
-						//on fait un appel récursif avec ch, les données du CurrContext créé !!!! encadré par try catch !!!!
-				//si on n'a pas pu trouver un bon match -> on revient au CurrContext précédent
-		//on retourne l'environnement du dernier CurrContext s'il y en a
-		//sinon, on lance une exception
-		return res;
+		if (goals.isEmpty()) {
+			System.out.println("Solution trouvée!");
+			System.out.println(env);
+			throw new SolutionFound(env);
+			//return env;
+		}
+		//résolution du premier but
+		Predicate but = goals.get(0);
+		for (DeclAssertion r : rules) {
+			Predicate head = r.getHead();
+			if (head.getSymbol().equals(but.getSymbol())) {
+				//on choisit la règle r pour le CurrContext à empiler dans ch
+				//on renomme
+				DeclAssertion renamed = r.rename(cpt);
+				head = renamed.getHead();
+				//unification
+				Systeme s = new Systeme();
+				s.setEnv(env.copy());
+				s.addEquation(new Equation(
+						new TermPredicate(head, head.getPosition()),
+						new TermPredicate(but, but.getPosition())));
+				try {
+					s.unify();
+				} catch (NoSolutionException excep) {
+					System.out.println(excep);
+					continue;
+				}
+				
+				//il y a une solution :
+				//création du contexte avec les nouveaux buts, dans une nouvelle liste
+				List<Predicate> nouvGoals = new ArrayList<>();
+				nouvGoals.addAll(goals);
+				//on retire le but qui vient d'être partiellement résolu
+				nouvGoals.remove(but);
+				nouvGoals.addAll(renamed.getPredicates());
+				//System.out.println("Environnement choix : "+s.getEnv());
+				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv());
+				ch.add(choix);
+				try {
+					choose(cpt++, ch, choix.getGoals(), choix.getRules(), choix.getEnv());
+				} catch (NoSolutionException excep) {
+					//le dernier choix effectué n'aboutit pas donc on le dépile
+					System.out.println(excep+" mauvais choix");
+					CurrContext.afficheListChoices(ch);
+					//ch.remove(choix); //à décommenter si on veut garder que les choix utiles
+					//on continue le parcours des règles
+					continue;
+				}
+			}
+		}
+		
+		//on n'a pas pu trouver de match, on lance une exception pour revenir à l'appel précédent
+		//si on est au tout premier appel, l'exception n'est pas rattrapée
+		throw new NoSolutionException("probleme non satisfiable");
+	}
+	
+	public static Environnement solve(List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+		try {
+			choose(0, ch, goals, rules, env);
+		} catch (SolutionFound sol) {
+			System.out.println(sol);
+			System.out.println("Journal des choix :");
+			CurrContext.afficheListChoices(ch);
+			return sol.getEnv();
+		}
+		return env;
+	}
+	
+	public static Environnement interprete4(Program ast) {
+		//séparation des Decl du Program
+		VisitorDecl separator = new VisitorDecl(false);
+		for (Decl d : ast.getDeclarations()) {
+			d.accept(separator);
+		}
+		return solve(new ArrayList<CurrContext>(), separator.getButs(), separator.getRegles(), new Environnement());
 	}
 }

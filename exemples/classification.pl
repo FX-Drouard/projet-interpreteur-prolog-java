@@ -26,3 +26,4 @@ felin(chat).
 
 
   
+?- animal(X), insecte(X).

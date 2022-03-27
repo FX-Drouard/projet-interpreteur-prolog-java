@@ -7,6 +7,7 @@ import java.util.Map;
 
 import pcomp.prolog.ast.*;
 import pcomp.prolog.ast.excep.FormatASTNotOK;
+import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
 public class Jalon1 {
@@ -45,7 +46,12 @@ public class Jalon1 {
 		Systeme s2 = new Systeme();
 		s2.addEquation(eq2);
 		s2.afficherSysteme();
-		s2.unify();
+		try {
+			s2.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
+		
 		
 		System.out.println("\n\nEq 3\n");
 		// 3 :
@@ -61,7 +67,11 @@ public class Jalon1 {
 		Systeme s3 = new Systeme();
 		s3.addEquation(eq3);
 		s3.afficherSysteme();
-		s3.unify();
+		try {
+			s3.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 		
 		System.out.println("\nEq 4\n");
 		// 4 : 
@@ -77,7 +87,11 @@ public class Jalon1 {
 		Systeme s4 = new Systeme();
 		s4.addEquation(eq4);
 		s4.afficherSysteme();
-		s4.unify();
+		try {
+			s4.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 		
 		
 		System.out.println("\nEq 5\n");
@@ -94,7 +108,11 @@ public class Jalon1 {
 		Systeme s5 = new Systeme();
 		s5.addEquation(eq5);
 		s5.afficherSysteme();
-		s5.unify();	
+		try {
+			s5.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}	
 		
 		System.out.println("\nEq 6\n");
 		// 6 : 
@@ -110,7 +128,11 @@ public class Jalon1 {
 		Systeme s6 = new Systeme();
 		s6.addEquation(eq6);
 		s6.afficherSysteme();
-		s6.unify();	
+		try {
+			s6.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 				
 		System.out.println("\nEq 7\n");
 		// 7 : 
@@ -126,7 +148,11 @@ public class Jalon1 {
 		Systeme s7 = new Systeme();
 		s7.addEquation(eq7);
 		s7.afficherSysteme();
-		s7.unify();	
+		try {
+			s7.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}	
 				
 			
 		System.out.println("\n Eq 8\n");
@@ -143,7 +169,11 @@ public class Jalon1 {
 		Systeme s8 = new Systeme();
 		s8.addEquation(eq8);
 		s8.afficherSysteme();
-		s8.unify();	
+		try {
+			s8.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 		
 		System.out.println("\n Eq 9\n");
 		// 9 : 
@@ -159,7 +189,11 @@ public class Jalon1 {
 		Systeme s9 = new Systeme();
 		s9.addEquation(eq9);
 		s9.afficherSysteme();
-		s9.unify();
+		try {
+			s9.unify();
+		} catch (NoSolutionException excep) {
+			System.out.println(excep);
+		}
 		
 		// Jalon2
 		System.out.println("\n\nTests interprete :");

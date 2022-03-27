@@ -110,5 +110,6 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 ```
 
 ```
-	La méthode solve demandée dans ce Jalon est implantée dans la classe Interprete.
+	La méthode solve demandée dans ce Jalon est implantée dans la classe Interprete. L'algorithme décrit est implémenté par la méthode privée choose qui est une méthode récursive. La méthode public solve se contente donc de rattraper les exceptions lancées par choose.
+	On peut se passer de cette division de l'algorithme si on modifie choose pour qu'elle soit récursive terminale.
 ```

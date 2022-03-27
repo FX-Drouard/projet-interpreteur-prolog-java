@@ -160,17 +160,11 @@ public class Systeme {
 		while (regleapp && !eqs.isEmpty()) {
 			regleapp = false; //aucune regle n'a ete appliquee sur le systeme pendant ce tour
 			// Application des regles
-			try {
-				subst();
-				regleapp = regleapp || effacer();
-				regleapp = regleapp || orienter();
-				regleapp = regleapp || decomposer();
-				regleapp = regleapp || remplacer();
-			} catch (NoSolutionException excep) {
-				System.out.println(excep);
-				System.out.println("Pas de solutions pour ce système");
-				env.clear(); //pas de solution, pas d'environnement
-			}
+			subst();
+			regleapp = regleapp || effacer();
+			regleapp = regleapp || orienter();
+			regleapp = regleapp || decomposer();
+			regleapp = regleapp || remplacer();
 		}
 		
 		//afficherSysteme();

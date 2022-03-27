@@ -17,12 +17,8 @@ public class CurrContext {
 	public CurrContext(DeclAssertion choice, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		this.choice = choice;
 		// on enregistre que des copies des listes
-		// question : est-ce que les copies sont faites lors de la création ou pendant(=dans le constructeur) pour goals?
-		List<Predicate> g = new ArrayList<>();
-		for (Predicate elem : goals) {
-			g.add(elem);
-		}
-		this.goals = g;
+		this.goals = goals;
+		//pas besoin de copier parce que par construction, le goals passé en paramètre est une nouvelle liste (dans solve du Jalon4)
 		List<DeclAssertion> r = new ArrayList<>();
 		for (DeclAssertion elem : rules) {
 			r.add(elem);
@@ -30,6 +26,26 @@ public class CurrContext {
 		toExplore = r;
 		this.env = env.copy();
 	}
+	
+	// Getters
+	
+	public DeclAssertion getChoice() {
+		return choice;
+	}
+	
+	public List<Predicate> getGoals() {
+		return goals;
+	}
+	
+	public List<DeclAssertion> getRules() {
+		return toExplore;
+	}
+	
+	public Environnement getEnv() {
+		return env;
+	}
+	
+	// Fonctions d'affichages
 	
 	@Override
 	public String toString() {

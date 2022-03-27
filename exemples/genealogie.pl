@@ -26,3 +26,4 @@ descendant(X, Y) :- supervisor(Y, Z), descendant(X, Z).
 
 
 
+?- descendant(X,church),supervisor(church,Y).

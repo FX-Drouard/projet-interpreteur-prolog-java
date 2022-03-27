@@ -41,7 +41,7 @@ public class Equation {
 			Predicate p1 = ((TermPredicate)gauche).getPredicate();
 			Predicate p2 = ((TermPredicate)droite).getPredicate();
 			if (p1.getSymbol().equals(p2.getSymbol())) {
-				// Dï¿½composition possible!
+				// Décomposition possible!
 				List<Term> args1 = p1.getArguments();
 				List<Term> args2 = p2.getArguments();
 				for (int i = 0;i<args1.size();i++) {
