@@ -63,14 +63,8 @@ public class Interprete {
 		if (buts.size() != 1) {
 			throw new IllegalArgumentException("Il y a trop de buts. Il n'en faut qu'un.");
 		}
-		// vérification des symboles de faits.
-		List<String> symbols = new ArrayList<>();
-		for (Predicate p : faits) {
-			if (symbols.contains(p.getSymbol())) {
-				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
-			}
-			symbols.add(p.getSymbol());
-		}
+		// vérification qu'il y a qu'une regle par symbole de prédicat
+		checkSymbols(v.getRegles());
 		
 		// recherche du fait avec le bon prédicat
 		for (Predicate p : faits) {
@@ -104,14 +98,8 @@ public class Interprete {
 		}
 		List<Predicate> faits = v.getFaits();
 		List<Predicate> buts = v.getButs();
-		// vérification des symboles de faits.
-		List<String> symbols = new ArrayList<>();
-		for (Predicate p : faits) {
-			if (symbols.contains(p.getSymbol())) {
-				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
-			}
-			symbols.add(p.getSymbol());
-		}
+		// vérification qu'il y a qu'une regle par symbole de prédicat
+		checkSymbols(v.getRegles());
 		
 		//pour tous les buts, on cherche un fait de même symbole
 		Systeme s = new Systeme();
@@ -145,13 +133,7 @@ public class Interprete {
 		List<DeclAssertion> rules = v.getRegles();
 		
 		// vérification qu'il y a qu'une regle par symbole de prédicat
-		List<String> symbols = new ArrayList<>();
-		for (DeclAssertion r : rules) {
-			if (symbols.contains(r.getHead().getSymbol())) {
-				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
-			}
-			symbols.add(r.getHead().getSymbol());
-		}
+		checkSymbols(rules);
 		
 		// résolution :
 		return solve(goals,rules);
@@ -159,6 +141,17 @@ public class Interprete {
 	
 	// Algorithmes
 	////////////////
+	
+	private static void checkSymbols(List<DeclAssertion> rules) {
+		// vérification qu'il y a qu'une regle par symbole de prédicat
+		List<String> symbols = new ArrayList<>();
+		for (DeclAssertion r : rules) {
+			if (symbols.contains(r.getHead().getSymbol())) {
+				throw new IllegalArgumentException("Il faut un fait par symbole de prédicat.");
+			}
+			symbols.add(r.getHead().getSymbol());
+		}
+	}
 	
 	public static Environnement choose(int n, Environnement v, Predicate but, List<DeclAssertion> rules, List<Predicate> nouvGoals) {
 		//choose fait aussi l'unification pour les faits
