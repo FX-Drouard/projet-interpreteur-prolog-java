@@ -138,6 +138,15 @@ public class Interprete {
 		// résolution :
 		return solve(goals,rules);
 	}
+
+	public static Environnement interprete4(Program ast) {
+		//séparation des Decl du Program
+		VisitorDecl separator = new VisitorDecl(false);
+		for (Decl d : ast.getDeclarations()) {
+			d.accept(separator);
+		}
+		return solve(new ArrayList<CurrContext>(), separator.getButs(), separator.getRegles(), new Environnement());
+	}
 	
 	// Algorithmes
 	////////////////
@@ -257,14 +266,5 @@ public class Interprete {
 			return sol.getEnv();
 		}
 		return env;
-	}
-	
-	public static Environnement interprete4(Program ast) {
-		//séparation des Decl du Program
-		VisitorDecl separator = new VisitorDecl(false);
-		for (Decl d : ast.getDeclarations()) {
-			d.accept(separator);
-		}
-		return solve(new ArrayList<CurrContext>(), separator.getButs(), separator.getRegles(), new Environnement());
 	}
 }

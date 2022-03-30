@@ -113,3 +113,13 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 	La méthode solve demandée dans ce Jalon est implantée dans la classe Interprete. L'algorithme décrit est implémenté par la méthode privée choose qui est une méthode récursive. La méthode public solve se contente donc de rattraper les exceptions lancées par choose.
 	On peut se passer de cette division de l'algorithme si on modifie choose pour qu'elle soit récursive terminale.
 ```
+
+#Jalon 5
+
+```
+	Pour l'algorithme nous servant à donner plusieurs solutions, nous alons surcharger la méthode choose implémentée dans le Jalon précédent.
+	Notre algorithme se repose sur la sauvegarde des contextes dans un journal de choix. Nous remontons chaque choix, en commençant par le choix le plus récent, pour voir si on ne pouvait pas choisir autrement à ce moment-là.
+	Nous ajoutons donc un attribut List à CurrContext qui nous sert à conserver les choix effectués juste après le choix courant. Il sera ajouté lors de la création du contexte du choix suivant. La liste est initialisée à vide.
+	Dans notre nouvelle méthode choose, nous allons vérifier, lors du choix, qu'il n'a pas été effectué avant
+	On remonte ainsi à chaque demande de solutions différentes.
+```

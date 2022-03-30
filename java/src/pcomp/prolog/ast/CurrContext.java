@@ -13,18 +13,16 @@ public class CurrContext {
 	private List<DeclAssertion> toExplore;
 	// environnement
 	private Environnement env;
+	// liste des choix suivants
+	private List<DeclAssertion> nextChoices;
 	
 	public CurrContext(DeclAssertion choice, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		this.choice = choice;
-		// on enregistre que des copies des listes
-		this.goals = goals;
 		//pas besoin de copier parce que par construction, le goals passé en paramètre est une nouvelle liste (dans solve du Jalon4)
-		List<DeclAssertion> r = new ArrayList<>();
-		for (DeclAssertion elem : rules) {
-			r.add(elem);
-		}
-		toExplore = r;
+		this.goals = goals;
+		toExplore = rules;
 		this.env = env.copy();
+		nextChoices = new ArrayList<>();
 	}
 	
 	// Getters
@@ -45,6 +43,14 @@ public class CurrContext {
 		return env;
 	}
 	
+	public List<DeclAssertion> getNextChoices() {
+		return nextChoices;
+	}
+	
+	public void addNextChoice(DeclAssertion choice) {
+		nextChoices.add(choice);
+	}
+	
 	// Fonctions d'affichages
 	
 	@Override
@@ -55,7 +61,7 @@ public class CurrContext {
 		for (Predicate goal : goals) {
 			sj.add(goal.toString());
 		}
-		sj.add("Environnement :"+env.toString());
+		//sj.add("Environnement :"+env.toString());
 		return sj.toString();
 	}
 	
