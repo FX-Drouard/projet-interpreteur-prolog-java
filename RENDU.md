@@ -13,7 +13,7 @@ Ainsi, on pourra représenter un systême d'équations par une Collection de l'API 
 ## Question 2
 ```
 	Notre fonction occur_check est implémentée dans la classe Equation. Elle est de visibilité private car elle n'est appelée que localement dans la fonction formatROK. Cette fonction renvoie true si l'instance d'Equation est une bonne candidate pour appliquer la règle remplacer. C'est-à-dire que son Term gauche est une instance de TermVariable.
-	occur_check utiise un TermVisitor, VisitorVar qui renvoie la liste des variables trouvées dans un Term.
+	occur_check utilise un TermVisitor, VisitorVar qui renvoie la liste des variables trouvées dans un Term.
 Ainsi, elle lève l'exception NoSolutionException dans le cas où une variable qui se trouve dans le Term gauche est dans le Term droit d'une Equation. Cette Exception est rattrappée le plus tard possible, c'est-à-dire dans la méthode unify de la classe Systeme, ce qui nous permet de mettre fin à la boucle d'unify.
 ```
 
@@ -115,6 +115,11 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 ```
 
 #Jalon 5
+
+```
+	Dans le Jalon 3, nous avons évoqué le nombre important de variables non-pertinentes contenues dans l'Environnement à cause du renommage.
+	Nous avons donc implémenté une méthode nettoieEnv dans la classe Environnement qui prend en paramètre une liste de variables qui sont celles des buts initiaux. Ainsi, l'Environnement renvoyé dans les interprètes des deux Jalons précédents ne contient strictement que les variables qui servent à résoudre les buts.
+```
 
 ```
 	Pour l'algorithme nous servant à donner plusieurs solutions, nous alons surcharger la méthode choose implémentée dans le Jalon précédent.

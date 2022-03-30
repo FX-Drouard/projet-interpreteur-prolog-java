@@ -52,7 +52,7 @@ public class Jalon3 {
 			System.out.println(excep);
 		}
 		try {
-			System.out.println(prog3OK);
+			System.out.println("\n\nHere\n"+prog3OK);
 			Environnement env3OK = Interprete.interprete3(prog3OK);
 			System.out.println("Environnement obtenu : "+env3OK);
 		} catch (NoSolutionException excep) {

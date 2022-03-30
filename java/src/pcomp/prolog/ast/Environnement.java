@@ -1,6 +1,7 @@
 package pcomp.prolog.ast;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Environnement {
@@ -25,6 +26,23 @@ public class Environnement {
 	
 	public boolean isEmpty() {
 		return env.isEmpty();
+	}
+	
+	public void nettoieEnv(List<TermVariable> list) {
+		Map<TermVariable, Term> nouvEnv = new HashMap<>();
+		for (TermVariable key : env.keySet()) {
+			if (list.contains(key)) {
+				Term p = env.get(key);
+				while (p instanceof TermVariable) {
+					p = env.get(p);
+				}
+				nouvEnv.put(key, p);
+				
+			}
+		}
+		System.out.println("Before nettoyage "+env);
+		env = nouvEnv;
+		System.out.println("After "+env);
 	}
 
 	public String toString() {

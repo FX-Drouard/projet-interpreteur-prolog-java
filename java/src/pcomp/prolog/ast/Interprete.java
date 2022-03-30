@@ -162,6 +162,21 @@ public class Interprete {
 		}
 	}
 	
+	// Récolte les variables des buts
+	// Utile pour le nettoyage de l'environnement
+	private static List<TermVariable> vars(List<Predicate> goals) {
+		VisitorVar v = new VisitorVar();
+		List<TermVariable> res = new ArrayList<>();
+		TermPredicate tmp;
+		for (Predicate p : goals) {
+			tmp = new TermPredicate(p, p.getPosition());
+			System.out.println("TermPredicate : "+tmp+tmp.accept(v));
+			res.addAll(tmp.accept(v));
+		}
+		System.out.println("Importants : "+res);
+		return res;
+	}
+	
 	public static Environnement choose(int n, Environnement v, Predicate but, List<DeclAssertion> rules, List<Predicate> nouvGoals) {
 		//choose fait aussi l'unification pour les faits
 		for (DeclAssertion d : rules) {
@@ -189,12 +204,14 @@ public class Interprete {
 	public static Environnement solve(List<Predicate> goals, List<DeclAssertion> rules) {
 		Environnement res = new Environnement();
 		int cpt = 1;
+		List<TermVariable> vars = vars(goals);
 		while (!goals.isEmpty()) {
 			System.out.println("Buts à vérifier : "+goals);
 			res = choose(cpt,res,goals.get(0),rules,goals);
 			goals.remove(0);
 			cpt++;
 		}
+		res.nettoieEnv(vars);
 		return res;
 	}
 	
@@ -263,8 +280,10 @@ public class Interprete {
 			System.out.println(sol);
 			System.out.println("Journal des choix :");
 			CurrContext.afficheListChoices(ch);
+			sol.getEnv().nettoieEnv(vars(goals));
 			return sol.getEnv();
 		}
+		env.nettoieEnv(vars(goals));
 		return env;
 	}
 }
