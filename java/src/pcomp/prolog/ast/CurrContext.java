@@ -14,15 +14,29 @@ public class CurrContext {
 	// environnement
 	private Environnement env;
 	// liste des choix suivants
-	private List<DeclAssertion> nextChoices;
+	private List<CurrContext> nextChoices;
+	// choix précédent
+	private CurrContext pere;
 	
-	public CurrContext(DeclAssertion choice, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+	public CurrContext(DeclAssertion choice, List<Predicate> goals, List<DeclAssertion> rules, Environnement env, CurrContext p) {
 		this.choice = choice;
 		//pas besoin de copier parce que par construction, le goals passé en paramètre est une nouvelle liste (dans solve du Jalon4)
 		this.goals = goals;
 		toExplore = rules;
 		this.env = env.copy();
 		nextChoices = new ArrayList<>();
+		pere = p;
+	}
+	
+	// Constructeur pour la racine
+	public CurrContext(List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+		this.choice = null;
+		//pas besoin de copier parce que par construction, le goals passé en paramètre est une nouvelle liste (dans solve du Jalon4)
+		this.goals = goals;
+		toExplore = rules;
+		this.env = env.copy();
+		nextChoices = new ArrayList<>();
+		pere = null;
 	}
 	
 	// Getters
@@ -43,11 +57,11 @@ public class CurrContext {
 		return env;
 	}
 	
-	public List<DeclAssertion> getNextChoices() {
+	public List<CurrContext> getNextChoices() {
 		return nextChoices;
 	}
 	
-	public void addNextChoice(DeclAssertion choice) {
+	public void addNextChoice(CurrContext choice) {
 		nextChoices.add(choice);
 	}
 	
@@ -56,25 +70,23 @@ public class CurrContext {
 	@Override
 	public String toString() {
 		StringJoiner sj = new StringJoiner("\n");
-		sj.add("Choix : "+choice.toString());
+		if (pere != null) {
+			sj.add(pere.toString());
+		}
+		if (choice == null) {
+			sj.add("Racine :");
+		} else {
+			sj.add("Choix : "+choice.toString());
+		}
 		sj.add("Buts à résoudre :");
 		for (Predicate goal : goals) {
 			sj.add(goal.toString());
 		}
-		//sj.add("Environnement :"+env.toString());
+		sj.add("Environnement :"+env.toString());
 		return sj.toString();
 	}
 	
-	public void afficheChoice() {
-		System.out.println(toString());
-	}
-	
-	public static void afficheListChoices(List<CurrContext> choices) {
-		int i = 1;
-		for (CurrContext c : choices) {
-			System.out.println("Choix n°"+i);
-			c.afficheChoice();
-			i++;
-		}
+	public static void afficheChoice(CurrContext choix) {
+		System.out.println(choix.toString());
 	}
 }

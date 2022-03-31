@@ -145,7 +145,7 @@ public class Interprete {
 		for (Decl d : ast.getDeclarations()) {
 			d.accept(separator);
 		}
-		return solve(new ArrayList<CurrContext>(), separator.getButs(), separator.getRegles(), new Environnement());
+		return solve(new CurrContext(separator.getButs(),separator.getRegles(),new Environnement()), separator.getButs(), separator.getRegles(), new Environnement());
 	}
 	
 	// Algorithmes
@@ -215,12 +215,12 @@ public class Interprete {
 		return res;
 	}
 	
-	private static void choose(int cpt, List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+	private static void choose(int cpt, CurrContext ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		//si goals non vide :
 		if (goals.isEmpty()) {
 			System.out.println("Solution trouvée!");
 			System.out.println(env);
-			throw new SolutionFound(env);
+			throw new SolutionFound(ch);
 			//return env;
 		}
 		//résolution du premier but
@@ -231,6 +231,8 @@ public class Interprete {
 				//on choisit la règle r pour le CurrContext à empiler dans ch
 				//on renomme
 				DeclAssertion renamed = r.rename(cpt);
+				cpt++;
+				System.out.println("renamed : "+renamed);
 				head = renamed.getHead();
 				//unification
 				Systeme s = new Systeme();
@@ -253,14 +255,14 @@ public class Interprete {
 				nouvGoals.remove(but);
 				nouvGoals.addAll(renamed.getPredicates());
 				//System.out.println("Environnement choix : "+s.getEnv());
-				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv());
-				ch.add(choix);
+				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv(), ch);
+				ch.addNextChoice(choix);
 				try {
-					choose(cpt++, ch, choix.getGoals(), choix.getRules(), choix.getEnv());
+					System.out.println("next choice : "+choix);
+					choose(cpt++, choix, choix.getGoals(), choix.getRules(), choix.getEnv());
 				} catch (NoSolutionException excep) {
 					//le dernier choix effectué n'aboutit pas donc on le dépile
 					System.out.println(excep+" mauvais choix");
-					CurrContext.afficheListChoices(ch);
 					//ch.remove(choix); //à décommenter si on veut garder que les choix utiles
 					//on continue le parcours des règles
 					continue;
@@ -273,15 +275,16 @@ public class Interprete {
 		throw new NoSolutionException("probleme non satisfiable");
 	}
 	
-	public static Environnement solve(List<CurrContext> ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
+	public static Environnement solve(CurrContext ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		try {
 			choose(0, ch, goals, rules, env);
 		} catch (SolutionFound sol) {
 			System.out.println(sol);
 			System.out.println("Journal des choix :");
-			CurrContext.afficheListChoices(ch);
-			sol.getEnv().nettoieEnv(vars(goals));
-			return sol.getEnv();
+			CurrContext.afficheChoice(sol.getFinalChoice());
+			Environnement res = sol.getFinalChoice().getEnv();
+			res.nettoieEnv(vars(goals));
+			return res;
 		}
 		env.nettoieEnv(vars(goals));
 		return env;

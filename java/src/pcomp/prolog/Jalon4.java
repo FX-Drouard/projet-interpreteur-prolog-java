@@ -23,19 +23,20 @@ public class Jalon4 {
 		Program prog1but = PrologParser.parseFile("tests_jalon_pl/interprete4_test1.pl");
 		System.out.println(prog1but);
 		try {
-			List<CurrContext> ch = new ArrayList<>();
 			VisitorDecl separator = new VisitorDecl(false);
 			for (Decl d : prog1but.getDeclarations()) {
 				d.accept(separator);
 			}
 			System.out.println("Goals : "+separator.getButs());
 			System.out.println("Rules : "+separator.getRegles());
-			Environnement env = Interprete.solve(ch, separator.getButs(), separator.getRegles(), new Environnement());
+			Environnement env = Interprete.solve(new CurrContext(separator.getButs(), separator.getRegles(), new Environnement()), separator.getButs(), separator.getRegles(), new Environnement());
 			System.out.println(env);
 		} catch (NoSolutionException excep) {
 			System.out.println(excep);
 			excep.printStackTrace();
 		}
+		
+		System.out.println("#######################################################");
 		
 		//tests de interprete4
 		System.out.println();
@@ -45,7 +46,7 @@ public class Jalon4 {
 			Environnement env = Interprete.interprete4(prog0);
 			System.out.println(env);
 		} catch (NoSolutionException excep) {
-			System.out.println(excep);
+			System.out.println("Jalon 4 "+excep);
 		}
 		System.out.println();
 		Program prog1 = PrologParser.parseFile("tests_jalon_pl/interprete4_test1.pl");

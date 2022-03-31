@@ -1,17 +1,17 @@
 package pcomp.prolog.ast.excep;
 
-import pcomp.prolog.ast.Environnement;
+import pcomp.prolog.ast.CurrContext;
 
 public class SolutionFound extends RuntimeException {
-	private Environnement env;
+	private CurrContext finalChoice;
 	
-	public SolutionFound(Environnement env) {
+	public SolutionFound(CurrContext ch) {
 		super("1 solution trouvée !");
-		this.env = env;
+		finalChoice = ch;
 	}
 	
-	public Environnement getEnv() {
-		return env;
+	public CurrContext getFinalChoice() {
+		return finalChoice;
 	}
 
 }
