@@ -19,7 +19,7 @@ public class InputParser {
 	
 	public static String gettext(JFrame frame) throws IOException {
 		JFileChooser chooser = new JFileChooser( new File("."));
-        chooser.setMultiSelectionEnabled(true);
+        chooser.setMultiSelectionEnabled(false);
         
         chooser.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent event){

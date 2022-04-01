@@ -1,38 +1,34 @@
 package pcomp.Gui;
 
 import java.awt.EventQueue;
-import pcomp.IO.*;
-import pcomp.prolog.parser.PrologParser;
+import java.awt.Font;
+import java.awt.TextArea;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
-import javax.swing.JFrame;
-import javax.swing.JTabbedPane;
-import java.awt.BorderLayout;
-import javax.swing.JPanel;
-import javax.swing.JToolBar;
-import javax.swing.JTextPane;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JScrollPane;
-import javax.swing.JEditorPane;
-import javax.swing.JFileChooser;
-
-import java.awt.TextArea;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.Font;
-import java.awt.event.ActionListener;
-import java.io.File;
-import java.io.IOException;
-import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JTabbedPane;
+import javax.swing.JToolBar;
+
+import pcomp.Gui.Question;
+import pcomp.IO.InputParser;
+import pcomp.IO.OutputParser;
+import pcomp.prolog.parser.PrologParser;
+import javax.swing.SwingConstants;
 
 public class Gui {
-	private static String[] argss;
+
 	private JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		argss=args;
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
@@ -74,10 +70,23 @@ public class Gui {
 		tabbedPane.addTab("Accueil", null, acceuil, null);
 		acceuil.setLayout(null);
 		
-		JLabel lblNewLabel = new JLabel("TODO");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 18));
-		lblNewLabel.setBounds(385, 183, 49, 14);
+		JLabel lblNewLabel = new JLabel("Interpreteur Prolog Par");
+		lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
+		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblNewLabel.setBounds(262, 205, 343, 48);
 		acceuil.add(lblNewLabel);
+		
+		JLabel lblCamille = new JLabel("Camille Palisoc et");
+		lblCamille.setHorizontalAlignment(SwingConstants.CENTER);
+		lblCamille.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblCamille.setBounds(262, 254, 343, 29);
+		acceuil.add(lblCamille);
+		
+		JLabel lblFranoisxavierDrouard = new JLabel("Fran\u00E7ois-Xavier Drouard");
+		lblFranoisxavierDrouard.setHorizontalAlignment(SwingConstants.CENTER);
+		lblFranoisxavierDrouard.setFont(new Font("Tahoma", Font.PLAIN, 24));
+		lblFranoisxavierDrouard.setBounds(262, 294, 343, 29);
+		acceuil.add(lblFranoisxavierDrouard);
 		
 		JPanel interprete = new JPanel();
 		tabbedPane.addTab("Interprete", null, interprete, null);
@@ -103,7 +112,9 @@ public class Gui {
 				if (text.getText().equals("")) {
 					outtext.setText("Veuillez ecrire du code dans la zone de texte au dessus!\n");
 				}else {
-					outtext.setText(PrologParser.parseString(text.getText()).toString());
+					//outtext.setText(PrologParser.parseString(text.getText()).toString());
+					Lanceur lance=new Lanceur(text.getText());
+					outtext.setText(lance.run());
 				}
 			}
 		});
@@ -113,17 +124,16 @@ public class Gui {
 	save.setToolTipText("Sauvegarder");
 	save.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			if ((text.getText().equals(""))||(outtext.getText().equals(""))) {
-				Question.warn("Aucun Text n'a été interprété pour le moment!\n Merci de lancer une interpretation avant de save!\n");
+			if ((text.getText().equals(""))) {
+				Question.warn("Aucun Text n'a été ecrit pour le moment!\n Merci d'ecrire quelquechose avant de save!\n");
 				return;
 			}
 			else {
-				String path=Question.getrep("Entrée le path a enregistrer! (a default ce sera ./Test.proji)\n", "./Test.proji", "Interface Temporaire de Save de Fichier");
 				try {
-					String pathi=OutputParser.writer(path, text.getText());
-					Question.info("Fichier ecrit avec succes sur : "+pathi);
-				} catch (IOException e1) {
-					Question.warn("Une erreur est survenue a l'écriture! \n"+e1.getMessage());
+					OutputParser.write(frame, text.getText());
+					Question.info("Fichier Enregistrer avec succes!");
+				} catch (Exception e1) {
+					Question.warn(e1.getMessage());
 				}
 			}
 		}
