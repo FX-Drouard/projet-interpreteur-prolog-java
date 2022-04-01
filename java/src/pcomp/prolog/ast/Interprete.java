@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pcomp.Gui.Question;
 import pcomp.Gui.Tools;
 import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.ast.excep.NoSolutionException;
@@ -171,10 +172,8 @@ public class Interprete {
 		TermPredicate tmp;
 		for (Predicate p : goals) {
 			tmp = new TermPredicate(p, p.getPosition());
-			System.out.println("TermPredicate : "+tmp+tmp.accept(v));
 			res.addAll(tmp.accept(v));
 		}
-		System.out.println("Importants : "+res);
 		return res;
 	}
 	
@@ -219,21 +218,19 @@ public class Interprete {
 	private static void choose(int cpt, CurrContext ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		//si goals non vide :
 		if (goals.isEmpty()) {
-			Tools.addText("Solution trouvée!");
-			Tools.addText(env.toString());
 			throw new SolutionFound(ch);
 			//return env;
 		}
 		//résolution du premier but
 		Predicate but = goals.get(0);
+		Tools.addText("Résolution de "+but+" à la position "+but.getPosition());
 		for (DeclAssertion r : rules) {
 			Predicate head = r.getHead();
-			if (head.getSymbol().equals(but.getSymbol())) {
+			if (head.getSymbol().equals(but.getSymbol()) && !ch.inNextChoices(r)) {
 				//on choisit la règle r pour le CurrContext à empiler dans ch
 				//on renomme
 				DeclAssertion renamed = r.rename(cpt);
 				cpt++;
-				Tools.addText("renamed : "+renamed);
 				head = renamed.getHead();
 				//unification
 				Systeme s = new Systeme();
@@ -259,12 +256,10 @@ public class Interprete {
 				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv(), ch);
 				ch.addNextChoice(choix);
 				try {
-					Tools.addText("next choice : "+choix);
 					choose(cpt++, choix, choix.getGoals(), choix.getRules(), choix.getEnv());
 				} catch (NoSolutionException excep) {
 					//le dernier choix effectué n'aboutit pas donc on le dépile
-					Tools.addText(excep+" mauvais choix");
-					//ch.remove(choix); //à décommenter si on veut garder que les choix utiles
+					ch.getNextChoices().remove(choix); //à décommenter si on veut garder que les choix utiles
 					//on continue le parcours des règles
 					continue;
 				}
@@ -282,12 +277,57 @@ public class Interprete {
 		} catch (SolutionFound sol) {
 			Tools.addText(sol.getMessage());
 			Tools.addText("Journal des choix :");
-			CurrContext.afficheChoice(sol.getFinalChoice());
+			Tools.addText(sol.getFinalChoice().toString());
+//			CurrContext.afficheChoice(sol.getFinalChoice()); //pour afficher sur la sortie standard
 			Environnement res = sol.getFinalChoice().getEnv();
 			res.nettoieEnv(vars(goals));
 			return res;
 		}
 		env.nettoieEnv(vars(goals));
 		return env;
+	}
+	
+	public static List<Environnement> multiSolve(CurrContext ch) {
+		List<Environnement> res = new ArrayList<>();
+		boolean more = true;
+		try {
+			while (more) {
+				List<TermVariable> var = vars(ch.getGoals());
+				try {
+					choose(0,ch,ch.getGoals(),ch.getRules(),ch.getEnv());
+				} catch (SolutionFound sol) {
+					//afficher solution
+					sol.getFinalChoice().getEnv().nettoieEnv(var);
+					res.add(sol.getFinalChoice().getEnv());
+					Tools.addText(sol.getFinalChoice().toString());
+					Tools.addText(sol.getFinalChoice().getEnv().toString());
+					//demander si utilisateur veut chercher d'autres solutions
+					more = Question.choix("Voulez-vous continuer à chercher d'autres solutions?");
+				} 
+			}
+		} catch (NoSolutionException excep) {
+			if (!res.isEmpty()) {
+				Tools.addText("Pas d'autres solutions");
+			} else {
+				throw new NoSolutionException(excep.getMessage());
+			}
+		}
+		
+		return res;
+	}
+	
+	public static List<Environnement> interprete5(Program ast) {
+		//séparation des Decl
+		VisitorDecl separator = new VisitorDecl(false);
+		for (Decl d : ast.getDeclarations()) {
+			d.accept(separator);
+		}
+		List<Predicate> goals = separator.getButs();
+		List<DeclAssertion> rules = separator.getRegles();
+		
+		//résolution
+		CurrContext ch = new CurrContext(goals,rules,new Environnement());
+		
+		return multiSolve(ch);
 	}
 }

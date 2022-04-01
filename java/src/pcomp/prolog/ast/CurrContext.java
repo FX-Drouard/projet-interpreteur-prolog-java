@@ -65,6 +65,15 @@ public class CurrContext {
 		nextChoices.add(choice);
 	}
 	
+	public boolean inNextChoices(DeclAssertion next) {
+		for (CurrContext c : nextChoices) {
+			if (next.equals(c.getChoice())) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
 	// Fonctions d'affichages
 	
 	@Override
@@ -76,13 +85,10 @@ public class CurrContext {
 		if (choice == null) {
 			sj.add("Racine :");
 		} else {
-			sj.add("Choix : "+choice.toString());
+			sj.add("Choix : "+choice.toString()+" à la position "+choice.getPosition());
 		}
-		sj.add("Buts à résoudre :");
-		for (Predicate goal : goals) {
-			sj.add(goal.toString());
-		}
-		sj.add("Environnement :"+env.toString());
+		sj.add("Buts à résoudre : "+goals.toString());
+		sj.add(env.toString());
 		return sj.toString();
 	}
 	

@@ -40,9 +40,7 @@ public class Environnement {
 				
 			}
 		}
-		System.out.println("Before nettoyage "+env);
 		env = nouvEnv;
-		System.out.println("After "+env);
 	}
 
 	public String toString() {
@@ -50,7 +48,6 @@ public class Environnement {
 	}
 	
 	public void afficherEnv() {
-		System.out.println("Environnement :");
 		for (TermVariable key : env.keySet()) {
 			System.out.println(key + " -> "+ env.get(key));
 		}

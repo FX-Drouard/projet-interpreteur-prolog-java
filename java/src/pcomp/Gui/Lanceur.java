@@ -1,4 +1,6 @@
 package pcomp.Gui;
+import java.util.List;
+
 import pcomp.*;
 import pcomp.prolog.ast.CurrContext;
 import pcomp.prolog.ast.Decl;
@@ -21,8 +23,8 @@ public class Lanceur {
 			//test
 			Program prog = PrologParser.parseString(textoriginel);
 			try {
-				Environnement env = Interprete.interprete4(prog);
-				Tools.addText(env.toString());
+				List<Environnement> envs = Interprete.interprete5(prog);
+				Tools.addText(envs.toString());
 			} catch (NoSolutionException excep) {
 				Tools.addText("Jalon 5 "+excep.getMessage());
 			}
