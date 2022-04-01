@@ -17,19 +17,16 @@ public class Lanceur {
 	}
 	
 	public String run() {
-		StringBuilder res= new StringBuilder();
 		try{
 			//test
 			Program prog = PrologParser.parseString(textoriginel);
-			res.append(prog);
-			res.append("\nSolution: ");
 			try {
 				Environnement env = Interprete.interprete4(prog);
-				res.append(env);
+				Tools.addText(env.toString());
 			} catch (NoSolutionException excep) {
-				res.append("Jalon 5 "+excep.getMessage());
+				Tools.addText("Jalon 5 "+excep.getMessage());
 			}
-			return res.toString();
+			return Tools.getText(true);
 		}catch (Exception e) {
 			Question.warn("Une erreur à été detecté!");
 			return "Erreur Critique! "+e.getMessage();

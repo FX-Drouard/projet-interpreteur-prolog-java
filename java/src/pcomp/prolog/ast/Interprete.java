@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import pcomp.Gui.Tools;
 import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.ast.excep.SolutionFound;
@@ -191,7 +192,7 @@ public class Interprete {
 				try {
 					s.unify();
 				} catch (NoSolutionException excep) {
-					System.out.println(excep);
+					Tools.addText(excep.getMessage());
 					return new Environnement();
 				}
 				nouvGoals.addAll(renamed.getPredicates());
@@ -206,7 +207,7 @@ public class Interprete {
 		int cpt = 1;
 		List<TermVariable> vars = vars(goals);
 		while (!goals.isEmpty()) {
-			System.out.println("Buts à vérifier : "+goals);
+			Tools.addText("Buts à vérifier : "+goals);
 			res = choose(cpt,res,goals.get(0),rules,goals);
 			goals.remove(0);
 			cpt++;
@@ -218,8 +219,8 @@ public class Interprete {
 	private static void choose(int cpt, CurrContext ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		//si goals non vide :
 		if (goals.isEmpty()) {
-			System.out.println("Solution trouvée!");
-			System.out.println(env);
+			Tools.addText("Solution trouvée!");
+			Tools.addText(env.toString());
 			throw new SolutionFound(ch);
 			//return env;
 		}
@@ -232,7 +233,7 @@ public class Interprete {
 				//on renomme
 				DeclAssertion renamed = r.rename(cpt);
 				cpt++;
-				System.out.println("renamed : "+renamed);
+				Tools.addText("renamed : "+renamed);
 				head = renamed.getHead();
 				//unification
 				Systeme s = new Systeme();
@@ -243,7 +244,7 @@ public class Interprete {
 				try {
 					s.unify();
 				} catch (NoSolutionException excep) {
-					System.out.println(excep);
+					Tools.addText(excep.getMessage());
 					continue;
 				}
 				
@@ -254,15 +255,15 @@ public class Interprete {
 				//on retire le but qui vient d'être partiellement résolu
 				nouvGoals.remove(but);
 				nouvGoals.addAll(renamed.getPredicates());
-				//System.out.println("Environnement choix : "+s.getEnv());
+				//Tools.addText("Environnement choix : "+s.getEnv());
 				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv(), ch);
 				ch.addNextChoice(choix);
 				try {
-					System.out.println("next choice : "+choix);
+					Tools.addText("next choice : "+choix);
 					choose(cpt++, choix, choix.getGoals(), choix.getRules(), choix.getEnv());
 				} catch (NoSolutionException excep) {
 					//le dernier choix effectué n'aboutit pas donc on le dépile
-					System.out.println(excep+" mauvais choix");
+					Tools.addText(excep+" mauvais choix");
 					//ch.remove(choix); //à décommenter si on veut garder que les choix utiles
 					//on continue le parcours des règles
 					continue;
@@ -279,8 +280,8 @@ public class Interprete {
 		try {
 			choose(0, ch, goals, rules, env);
 		} catch (SolutionFound sol) {
-			System.out.println(sol);
-			System.out.println("Journal des choix :");
+			Tools.addText(sol.getMessage());
+			Tools.addText("Journal des choix :");
 			CurrContext.afficheChoice(sol.getFinalChoice());
 			Environnement res = sol.getFinalChoice().getEnv();
 			res.nettoieEnv(vars(goals));
