@@ -1,4 +1,4 @@
-% RÃ¨gles
+% Règles
 %% Tous les insectes sont des animaux
 % animal/1
 % insecte/1
@@ -7,10 +7,10 @@
 
 animal(X) :- insecte(X).
    
-%% Tous les mammifÃ¨res sont des animaux
+%% Tous les mammifères sont des animaux
 animal(X) :- mammifere(X).
 
-%% Tous les fÃ©lins sont des mammifÃ¨res
+%% Tous les félins sont des mammifères
 mammifere(X) :- felin(X).
 
 
@@ -19,7 +19,7 @@ mammifere(X) :- felin(X).
 
 insecte(fourmi).
 
-%% Chat est un fÃ©lin
+%% Chat est un félin
 felin(chat).
 
 
