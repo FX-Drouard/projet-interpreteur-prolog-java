@@ -1,12 +1,8 @@
 package pcomp.prolog;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
 
 import pcomp.prolog.ast.*;
-import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
@@ -224,16 +220,29 @@ public class Jalon1 {
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog1);
-			Environnement env1 = Interprete.interprete0(prog1);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete0(prog1);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
+			
 			System.out.println("\nTest 2");
 			System.out.println(prog2);
-			Environnement env2 = Interprete.interprete0(prog2);
-			env2.afficherEnv();
+			try {
+				Environnement env2 = Interprete.interprete0(prog2);
+				env2.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 			System.out.println("\nTest 3");
 			System.out.println(prog3);
-			Environnement env3 = Interprete.interprete0(prog3);
-			env3.afficherEnv();
+			try {
+				Environnement env3 = Interprete.interprete0(prog3);
+				env3.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
@@ -241,24 +250,36 @@ public class Jalon1 {
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog11);
-			Environnement env1 = Interprete.interprete0(prog11);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete0(prog11);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		try {
 			System.out.println("\nTest 2");
 			System.out.println(prog22);
-			Environnement env1 = Interprete.interprete0(prog22);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete0(prog22);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		try {
 			System.out.println("\nTest 3");
 			System.out.println(prog_err);
-			Environnement env1 = Interprete.interprete0(prog_err);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete0(prog_err);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
@@ -268,12 +289,20 @@ public class Jalon1 {
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog11);
-			Environnement env11 = Interprete.interprete1(prog11);
-			env11.afficherEnv();
+			try {
+				Environnement env11 = Interprete.interprete1(prog11);
+				env11.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 			System.out.println("\nTest 2");
 			System.out.println(prog12);
-			Environnement env12 = Interprete.interprete1(prog12);
-			env12.afficherEnv();;
+			try {
+				Environnement env12 = Interprete.interprete1(prog12);
+				env12.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
@@ -281,24 +310,36 @@ public class Jalon1 {
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog13);
-			Environnement env1 = Interprete.interprete1(prog13);
-			env1.afficherEnv();
+			try {
+				Environnement env13 = Interprete.interprete1(prog13);
+				env13.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		try {
 			System.out.println("\nTest 2");
 			System.out.println(prog_err);
-			Environnement env1 = Interprete.interprete1(prog_err);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete1(prog_err);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		try {
 			System.out.println("\nTest 3");
 			System.out.println(prog24);
-			Environnement env1 = Interprete.interprete1(prog24);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete1(prog24);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
@@ -308,37 +349,61 @@ public class Jalon1 {
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog21);
-			Environnement env21 = Interprete.interprete2(prog21);
-			env21.afficherEnv();
+			try {
+				Environnement env21 = Interprete.interprete2(prog21);
+				env21.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 			System.out.println("\nTest 2");
 			System.out.println(prog22);
-			Environnement env22 = Interprete.interprete2(prog22);
-			env22.afficherEnv();
+			try {
+				Environnement env22 = Interprete.interprete2(prog22);
+				env22.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 			System.out.println("\nTest 3");
 			System.out.println(prog23);
-			Environnement env23 = Interprete.interprete2(prog23);
-			env23.afficherEnv();
+			try {
+				Environnement env23 = Interprete.interprete2(prog23);
+				env23.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 			System.out.println("\nTest 4");
 			System.out.println(prog24);
-			Environnement env24 = Interprete.interprete2(prog24);
-			env24.afficherEnv();
-		} catch (FormatASTNotOK e) {
+			try {
+				Environnement env24 = Interprete.interprete2(prog24);
+				env24.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
+		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		System.out.println("\ncas de levée d'exception : ");
 		try {
 			System.out.println("\nTest 1");
 			System.out.println(prog_err);
-			Environnement env1 = Interprete.interprete2(prog_err);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete2(prog_err);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
 		try {
 			System.out.println("\nTest 2");
 			System.out.println(prog13);
-			Environnement env1 = Interprete.interprete2(prog13);
-			env1.afficherEnv();
+			try {
+				Environnement env1 = Interprete.interprete2(prog13);
+				env1.afficherEnv();
+			} catch (NoSolutionException excep) {
+				System.out.println(excep);
+			}
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}

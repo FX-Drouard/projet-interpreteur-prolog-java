@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -12,7 +12,7 @@ import java.util.List;
 /*
  * AST : classe des buts.
  *
- * Un but est une dÃ©claration de la forme "?- pred, ..., pred."
+ * Un but est une déclaration de la forme "?- pred, ..., pred."
  */
 public class DeclGoal implements Decl {
 
@@ -20,7 +20,7 @@ public class DeclGoal implements Decl {
 	/////////////////
 
 	private final Position pos;
-	private final List<Predicate> preds; // prÃ©dicats, Ã  droite de ?-
+	private final List<Predicate> preds; // prédicats, à droite de ?-
 
 
 	// Constructeur
@@ -44,7 +44,7 @@ public class DeclGoal implements Decl {
 	}
 
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {

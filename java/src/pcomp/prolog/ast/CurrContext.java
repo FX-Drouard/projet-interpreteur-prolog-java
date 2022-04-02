@@ -6,6 +6,8 @@ import java.util.StringJoiner;
 
 /**
  * Classe représentant le contexte d'un choix après avoir été exploré
+ * Les choix sont liés entre eux de manière arborescente
+ * 
  * @author Camille Palisoc
  *
  */

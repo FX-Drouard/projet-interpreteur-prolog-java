@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -14,7 +14,7 @@ import java.util.List;
 /*
  * AST : classe des assertions.
  *
- * Une assertion est une dÃ©claration de la forme "head :- pred, ..., pred."
+ * Une assertion est une déclaration de la forme "head :- pred, ..., pred."
  */
 public class DeclAssertion implements Decl {
 
@@ -22,14 +22,14 @@ public class DeclAssertion implements Decl {
 	////////////////
 
 	private final Position pos;
-	private final Predicate head; // en-tÃªte, Ã  gauche de :-
-	private final List<Predicate> preds; // prÃ©dicats, Ã  droite de :-
+	private final Predicate head; // en-tête, à gauche de :-
+	private final List<Predicate> preds; // prédicats, à droite de :-
 
 
 	// Constructeurs
 	/////////////////////////
 
-	// assertion avec membres droit
+	// assertion avec membre droit
 	public DeclAssertion(Predicate head, List<Predicate> preds, Position pos) {
 		this.head = head;
 		this.preds = preds;
@@ -58,7 +58,7 @@ public class DeclAssertion implements Decl {
 	}
 
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {
