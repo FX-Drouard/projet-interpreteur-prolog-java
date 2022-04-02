@@ -1,6 +1,6 @@
  /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -8,7 +8,7 @@
 package pcomp.prolog.ast;
 
 /*
- * AST : reprÃ©sentation d'une position (line,colonne) dans le source.
+ * AST : représentation d'une position (line,colonne) dans le source.
  */
 public class Position {
 

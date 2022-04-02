@@ -125,8 +125,8 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 	Pour l'algorithme nous servant à donner plusieurs solutions, nous alons modifier la méthode choose implémentée dans le Jalon précédent.
 	Notre algorithme se repose sur la sauvegarde des contextes dans un journal de choix. Nous remontons chaque choix, en commençant par le choix le plus récent, pour voir si on ne pouvait pas choisir autrement à ce moment-là.
 	Nous ajoutons donc un attribut List à CurrContext qui nous sert à conserver les choix effectués juste après le choix courant. Il sera ajouté lors de la création du contexte du choix suivant. La liste est initialisée à vide.
-	Dans notre "nouvelle" méthode choose, nous allons vérifier, lors du choix, qu'il n'a pas été effectué avant
+	Dans notre méthode choose, nous allons vérifier, lors du choix de la règle à unifier, qu'il n'a pas été effectué avant
 	On remonte ainsi à chaque demande de solutions différentes.
-	Pour faire cela, nous devons modifier notre classe CurrContext et notre manière de représenter un journal de choix. Le nouvel attribut nextChoices est une liste de CurrContext, ce qui donne donc une représentation arborescente à notre journal de choix qui sera désormais le CurrContext racine où l'attribut choice sera null.
-	Nous modifions donc la fonction d'affichage pour qu'elle montre qu'un seul chemin : on part donc d'une feuille.
+	Pour faire cela, nous avons modifié notre classe CurrContext et notre manière de représenter un journal de choix. Le nouvel attribut nextChoices est une liste de CurrContext, ce qui donne donc une représentation arborescente à notre journal de choix qui sera désormais le CurrContext racine où l'attribut choice sera null.
+	Nous modifions donc la fonction d'affichage pour qu'elle ne montre qu'un seul chemin : on part donc d'une feuille.
 ```

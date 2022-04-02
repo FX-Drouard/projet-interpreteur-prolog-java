@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -41,7 +41,7 @@ public class TermVariable implements Term {
 	}
 
 	
-	// Ã‰galitÃ© (de contenu)
+	// Egalité (de contenu)
 	///////////////////////////////////
 
 	@Override public boolean equals(Object o) {
@@ -56,7 +56,7 @@ public class TermVariable implements Term {
 	}
 
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {

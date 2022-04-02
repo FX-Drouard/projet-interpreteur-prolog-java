@@ -2,6 +2,13 @@ package pcomp.prolog.ast.excep;
 
 import pcomp.prolog.ast.CurrContext;
 
+/**
+ * Exception levée quand une solution a été trouvée
+ * Utilisée dans le backtracking
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class SolutionFound extends RuntimeException {
 	private CurrContext finalChoice;
 	

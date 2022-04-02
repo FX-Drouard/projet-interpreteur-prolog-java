@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -12,19 +12,19 @@ import java.util.Collections;
 import java.util.List;
 
 /*
- * AST : classe des prÃ©dicats.
+ * AST : classe des prédicats.
  *
- * Un prÃ©dicat a la forme f(term1,...,termN).
- * f est son symbole, et term1 Ã  termN sont ses arguments
+ * Un prédicat a la forme f(term1,...,termN).
+ * f est son symbole, et term1 à termN sont ses arguments
  */
 public class Predicate {
 
 	// Attributs
 	////////////////
 
-	private final Position pos; // position du dÃ©but du prÃ©dicat
-	private final String symbol; // symbole du prÃ©dicat
-	private final List<Term> args; // arguments du prÃ©dicat
+	private final Position pos; // position du début du prédicat
+	private final String symbol; // symbole du prédicat
+	private final List<Term> args; // arguments du prédicat
 
 
 	// Constructeurs
@@ -58,7 +58,7 @@ public class Predicate {
 		return pos;
 	}
 	
-	// Ã‰galitÃ© structurelle (rÃ©cursive)
+	// Egalité structurelle (récursive)
 	///////////////////////////////////////////////////
 
 	@Override public boolean equals(Object o) {
@@ -83,7 +83,7 @@ public class Predicate {
 		return hash;
 	}
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {
@@ -100,17 +100,21 @@ public class Predicate {
 		return buf.toString();
 	}
 	
-	// Autres methodes
-	///////////////////////
+	// Autres méthodes
 	
-	// Remplace, si presente, la variable x dans ses arguments
+	/**
+	 * Remplace, si présente, la variable x dans ses arguments
+	 * @param x : TermVariable à remplacer
+	 * @param nouv : Term par lequel remplacer x
+	 * @return true si la règle remplacer a été appliquée, false sinon
+	 */
 	public boolean subst(TermVariable x, Term nouv) {
 		boolean replaced = false;
 		for (int i=0;i<args.size();i++) {
 			Term t = args.get(i);
 			if (t instanceof TermVariable) {
 				if (((TermVariable)t).equals(x)) {
-					// on a trouve une variable x, on la remplace
+					// on a trouvé une variable x, on la remplace
 					replaced = true;
 					args.set(i, nouv);
 				}
@@ -123,7 +127,11 @@ public class Predicate {
 		return replaced;
 	}
 	
-	// renomme les variables dans les arguments du prédicat
+	/**
+	 * Renomme les variables dans les arguments du prédicat
+	 * @param n : compteur à ajouter au nom de la variable
+	 * @return le nouveau TermPredicate créé avec les variables renommées
+	 */
 	public TermPredicate rename(int n) {
 		VisitorRename v = new VisitorRename(n);
 		List<Term> nouvArgs = new ArrayList<>();
@@ -133,6 +141,10 @@ public class Predicate {
 		return new TermPredicate(new Predicate(symbol,nouvArgs,pos),pos);
 	}
 	
+	/**
+	 * Fait une copie de l'objet
+	 * @return un Predicate avec les mêmes arguments et la même position
+	 */
 	public Predicate copy() {
 		List<Term> res=new ArrayList<>();
 		for (int i=0;i<args.size();i++) {

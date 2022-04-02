@@ -3,13 +3,18 @@ package pcomp.prolog.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-// visiteur utilisé pour séparer les faits des buts et les récupérer
+/**
+ * Visiteur utilisé pour séparer les faits et règles des buts et les récupérer
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class VisitorDecl implements DeclVisitor<List<Predicate>> {
 	
 	private List<Predicate> buts = new ArrayList<>();
 	private List<Predicate> faits = new ArrayList<>();
 	private List<DeclAssertion> regles = new ArrayList<>();
-	// pour lancer l'exception que dans le cas des premiers interpretes
+	/** pour lancer l'exception que dans le cas des premiers interpretes. true par défaut */
 	private boolean faitsOnly;
 	
 	public VisitorDecl(boolean faitsOnly) {

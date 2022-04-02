@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -12,7 +12,7 @@ import java.util.List;
 /*
  * AST de programmes Prolog.
  *
- * Un programme Prolog est une liste de dÃ©clarations.
+ * Un programme Prolog est une liste de déclarations.
  */
 public class Program {
 
@@ -38,7 +38,7 @@ public class Program {
 	}
 
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {

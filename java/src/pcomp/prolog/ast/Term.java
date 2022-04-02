@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -10,7 +10,7 @@ package pcomp.prolog.ast;
 /*
  * AST : interface des termes.
  *
- * Un terme est soit une variable, soit un prÃ©dicat f(term1,...,termN).
+ * Un terme est soit une variable, soit un prédicat f(term1,...,termN).
  */
 public interface Term {
 

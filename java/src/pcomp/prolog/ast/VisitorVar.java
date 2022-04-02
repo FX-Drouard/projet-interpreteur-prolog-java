@@ -3,7 +3,13 @@ package pcomp.prolog.ast;
 import java.util.ArrayList;
 import java.util.List;
 
-// Visiteur qui permet de lister toutes les variables dans un Term
+
+/**
+ *  Visiteur qui permet de lister toutes les variables dans un Term
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class VisitorVar implements TermVisitor<List<TermVariable>> {
 
 	@Override

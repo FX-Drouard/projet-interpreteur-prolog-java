@@ -1,6 +1,6 @@
 /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -8,7 +8,7 @@
 package pcomp.prolog.ast;
 
 /*
- * AST : classe des termes qui sont des prÃ©dicats.
+ * AST : classe des termes qui sont des prédicats.
  *
  */
 public class TermPredicate implements Term {
@@ -41,7 +41,7 @@ public class TermPredicate implements Term {
 	}
 
 	
-	// Ã‰galitÃ© structurelle (rÃ©cursive)
+	// Egalité structurelle (récursive)
 	///////////////////////////////////////////////////
 
 	@Override public boolean equals(Object o) {
@@ -57,7 +57,7 @@ public class TermPredicate implements Term {
 		return pred.hashCode();
 	}
 
-	// Conversion en chaÃ®ne
+	// Conversion en chaîne
 	/////////////////////////////////////
 
 	@Override public String toString() {
@@ -72,10 +72,21 @@ public class TermPredicate implements Term {
 		return visitor.visit(this);
 	}
 
+	/**
+	 * Remplace, si besoin, les variables dans le TermPredicate
+	 * @param x : variable à remplacer
+	 * @param nouv : Term par lequel remplacer la variable x
+	 * @return true si la règle a été appliquée
+	 */
 	public boolean subst(TermVariable x, Term nouv) {
 		return pred.subst(x, nouv);
 	}
 	
+	/**
+	 * Renomme les variables dans les arguments du prédicat
+	 * @param n : compteur à ajouter au nom de la variable
+	 * @return le nouveau TermPredicate créé avec les variables renommées
+	 */
 	public TermPredicate rename(int n) {
 		return pred.rename(n);
 	}

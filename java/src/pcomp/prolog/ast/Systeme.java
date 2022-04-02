@@ -1,34 +1,51 @@
 package pcomp.prolog.ast;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import pcomp.prolog.ast.excep.FoundRException;
-import pcomp.prolog.ast.excep.NoSolutionException;
-
+/**
+ * Classe représentant un système d'équations
+ * 
+ * @author Camille Palisoc, François-Xavier Drouard
+ *
+ */
 public class Systeme {
 	
 	private List<Equation> eqs = new ArrayList<>();
 	private Environnement env = new Environnement();
 	
-	// Methodes pour gerer la liste d'Equation
-	/////////////////////////////////////////////
+	// Méthodes pour gérer la liste d'équations
 	
+	/**
+	 * Ajoute e dans la liste d'équations
+	 * @param e : Equation à ajouter
+	 */
 	public void addEquation(Equation e) {
 		eqs.add(e);
 	}
 	
+	/**
+	 * Retire l'équation du système
+	 * @param e : Equation à retirer
+	 */
 	public void removeEquation(Equation e) {
 		eqs.remove(e);
 	}
 	
+	/**
+	 * Getter de l'Equation à l'indice index
+	 * @param index : position de l'équation dans la liste
+	 * @return Equation à l'indice index
+	 */
 	public Equation getEq(int index) {
 		return eqs.get(index);
 	}
 	
-	//Renvoie une copie en surface de la liste eqs
+	/**
+	 * Renvoie une copie en surface de la liste d'Equation
+	 * Utilisée pour le parcours de la liste d'équations dans l'application des règles d'unification
+	 * @return copie de la liste d'équations
+	 */
 	private List<Equation> copie() {
 		List<Equation> res = new ArrayList<>();
 		for (Equation e : eqs) {
@@ -41,7 +58,9 @@ public class Systeme {
 		return eqs.size();
 	}
 	
-	// Affichage
+	/**
+	 * Affiche sur la sortie standard les équations du système et l'environnement
+	 */
 	public void afficherSysteme() {
 		System.out.println("Affichage du systeme :");
 		for (Equation e : eqs) {
@@ -53,19 +72,28 @@ public class Systeme {
 		env.afficherEnv();
 	}
 	
-	// Getter
+	/**
+	 * Getter pour l'attribut env
+	 * @return environnement associé
+	 */
 	public Environnement getEnv() {
 		return env;
 	}
 	
-	// Setter
+	/**
+	 * Setter pour l'attribut env
+	 * @param e : nouvel environnement
+	 */
 	public void setEnv(Environnement e) {
 		env = e;
 	}
 	
-	// Regles d'unification
-	///////////////////////////
+	// Règles d'unification
 	
+	/**
+	 * Applique, si possible, la règle décomposer sur une équation du système
+	 * @return true si la règle a pu être appliquée
+	 */
 	private boolean decomposer() {
 //		System.out.println("Décomposer?");
 		boolean replaced = false;
@@ -81,6 +109,10 @@ public class Systeme {
 		return replaced;
 	}
 	
+	/**
+	 * Applique, si possible, la règle effacer sur une équation du système
+	 * @return true si la règle a pu être appliquée
+	 */
 	private boolean effacer() {
 //		System.out.println("Effacer?");
 		boolean replaced = false;
@@ -96,6 +128,10 @@ public class Systeme {
 		return replaced;
 	}
 	
+	/**
+	 * Applique, si possible, la règle orienter sur une équation du système
+	 * @return true si la règle a pu être appliquée
+	 */
 	private boolean orienter() {
 //		System.out.println("Orienter?");
 		boolean replaced = false;
@@ -111,6 +147,10 @@ public class Systeme {
 		return replaced;
 	}
 	
+	/**
+	 * Réccupère et stocke dans l'environnement les équations de la forme TermVariable = Term
+	 * @return true si la règle a pu être appliquée
+	 */
 	private boolean remplacer() {
 //		System.out.println("Remplacer?");
 		boolean replaced = false;
@@ -132,6 +172,9 @@ public class Systeme {
 		return replaced;
 	}
 	
+	/**
+	 * Applique la règle remplacer sur les équations du système avec le contenu de l'environnement
+	 */
 	private void subst() {
 //		System.out.println("Substitution?");
 //		env.afficherEnv();
@@ -153,6 +196,9 @@ public class Systeme {
 //		}
 	}
 	
+	/**
+	 * Applique les règles d'unification sur le système d'équations
+	 */
 	public void unify() {
 		// regleapp sert de condition d'arret de notre boucle d'unification
 		boolean regleapp = true;

@@ -2,7 +2,13 @@ package pcomp.prolog.ast.excep;
 
 import pcomp.prolog.ast.Equation;
 
-// Exception levee quand on trouve une Equation candidate pour appliquer la regle remplacer
+
+/**
+ * Exception levee quand on trouve une Equation candidate pour appliquer la règle remplacer
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class FoundRException extends RuntimeException {
 	
 	private Equation e;

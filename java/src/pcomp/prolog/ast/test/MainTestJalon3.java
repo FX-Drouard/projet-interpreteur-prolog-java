@@ -14,6 +14,12 @@ import pcomp.prolog.ast.VisitorDecl;
 import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
+/**
+ * Classe de tests pour surveiller, à travers l'affichage sur la sortie standard, le renommage des variables
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class MainTestJalon3 {
 	
 	public static void main(String[] args) throws IOException {

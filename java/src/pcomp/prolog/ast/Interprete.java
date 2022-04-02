@@ -274,6 +274,8 @@ public class Interprete {
 	/**
 	 * Choisit la règle à appliquer.
 	 * Méthode pour le backtracking
+	 * Lève l'exception SolutionFound si une solution est trouvée,
+	 * si toutes les règles sont parcourues et aucune solution n'est trouvée, NoSolutionException est levée
 	 * @param cpt : compteur
 	 * @param ch : choix courant, sous forme arborescente
 	 * @param goals : liste de buts
@@ -336,6 +338,14 @@ public class Interprete {
 		throw new NoSolutionException("probleme non satisfiable");
 	}
 	
+	/**
+	 * Résout le problème décrit par les paramètres
+	 * @param ch : choix courant, initialement une racine
+	 * @param goals : liste des buts à résoudre
+	 * @param rules : liste des règles
+	 * @param env : environnement, initialement vide
+	 * @return environnement solution, lève l'exception NoSolutionException si le problème n'est pas satisfiable
+	 */
 	public static Environnement solve(CurrContext ch, List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		try {
 			choose(0, ch, goals, rules, env);
@@ -352,6 +362,11 @@ public class Interprete {
 		return env;
 	}
 	
+	/**
+	 * Cherche autant de solutions que veut l'utilisateur, autant qu'il y en a
+	 * @param ch : racine des choix
+	 * @return la liste d'environnements pouvant résoudre le problème décrit par les attributs de ch
+	 */
 	public static List<Environnement> multiSolve(CurrContext ch) {
 		List<Environnement> res = new ArrayList<>();
 		boolean more = true;

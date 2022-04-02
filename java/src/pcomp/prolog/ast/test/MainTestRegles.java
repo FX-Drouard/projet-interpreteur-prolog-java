@@ -1,13 +1,16 @@
 package pcomp.prolog.ast.test;
 
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 import pcomp.prolog.ast.*;
-import pcomp.prolog.parser.PrologParser;
 
+/**
+ * Classe de tests pour surveiller, à travers l'affichage sur la sortie standard, l'application des règles d'unification
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class MainTestRegles {
 	
 	// création des Term avec la Position à null

@@ -4,6 +4,12 @@ import pcomp.prolog.ast.*;
 import java.util.List;
 import java.util.ArrayList;
 
+/**
+ * Classe de tests pour surveiller, à travers l'affichage sur la sortie standard, le comportement de VisitorVar
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class MainVisitorVar {
 
 	public static void main(String[] args) {

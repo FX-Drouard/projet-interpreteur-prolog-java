@@ -1,5 +1,11 @@
 package pcomp.prolog.ast;
 
+/**
+ * Visiteur utilisé pour renommer les variables dans les termes
+ * 
+ * @author Camille Palisoc
+ *
+ */
 public class VisitorRename implements TermVisitor<Term> {
 	
 	private int n;
