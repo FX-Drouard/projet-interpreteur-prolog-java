@@ -14,7 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.*; 
 import java.awt.*;
 /**
- * Cette classe permet de crée des interfaces simpliste | Version Personel V0.7.2
+ * Cette classe permet de crée des interfaces simpliste | Version Personel V1.2.1
  * @author François-Xavier Drouard  
  */
 public class Question {
@@ -108,6 +108,11 @@ public class Question {
         temp.q.dispose();
     }
     
+    /**
+	 * Permet de demander a l'utilisateur s'il veux continuer ou non
+	 * @param question : La question
+	 * @return Si oui ou non
+	 */
     public static boolean choix(String text) {
     	int dialogButton = JOptionPane.YES_NO_OPTION;
     	int dialogResult = JOptionPane.showConfirmDialog (null, text,"Choix",dialogButton);
