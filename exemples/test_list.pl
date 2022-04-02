@@ -20,5 +20,3 @@ prefix(concat(X,Xs), concat(X,Ys)) :- prefix(Xs,Ys).
 substitute(X, Y, empty, empty).
 substitute(X, Y, concat(X,Xs), concat(Y,Ys)) :- substitute(X, Y, Xs, Ys).
 substitute(X, Y, concat(Z,Xs), concat(Z,Ys)) :- substitute(X, Y, Xs, Ys).
-
-			  

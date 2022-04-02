@@ -9,6 +9,11 @@ import pcomp.prolog.ast.Program;
 import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
+/**
+ * Classe exécutable pour le Jalon 5
+ * @author Camille Palisoc
+ *
+ */
 public class Jalon5 {
 	
 	public static void main(String[] args) throws IOException {

@@ -25,27 +25,6 @@ public class OutputParser {
 	 * @throws IOException
 	 * @return Le path du fichier ecrit!
 	 */
-	/*public static String writer(String path, String txt) throws IOException {
-		String pathok = path.split(".pl")[0];
-		try {
-			   File file = new File(pathok+".pl");
-			   int i =0;
-			   // créer le fichier s'il n'existe pas
-			   while (file.exists()) {
-				   i++;
-				   pathok = path.split(".pl")[0]+"_"+i;
-				   file = new File(pathok+".pl");
-			   }
-			   file.createNewFile();
-			   FileWriter fw = new FileWriter(file.getAbsoluteFile());
-			   BufferedWriter bw = new BufferedWriter(fw);
-			   bw.write(txt);
-			   bw.close();
-			   return pathok+".pl";
-			  } catch (IOException e) {
-				 throw new IOException("Erreur");
-			  }
-	}*/
 	public static void write(JFrame frame, String txt) throws IOException {
 		JFileChooser chooser = new JFileChooser( new File("."));
         chooser.setMultiSelectionEnabled(false);

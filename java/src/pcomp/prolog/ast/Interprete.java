@@ -188,12 +188,7 @@ public class Interprete {
 				s.addEquation(new Equation(
 						new TermPredicate(renamed.getHead(),renamed.getPosition()),
 						new TermPredicate(but,but.getPosition())));
-				try {
-					s.unify();
-				} catch (NoSolutionException excep) {
-					Tools.addText(excep.getMessage());
-					return new Environnement();
-				}
+				s.unify();
 				nouvGoals.addAll(renamed.getPredicates());
 				return s.getEnv();
 			}
@@ -259,7 +254,7 @@ public class Interprete {
 					choose(cpt++, choix, choix.getGoals(), choix.getRules(), choix.getEnv());
 				} catch (NoSolutionException excep) {
 					//le dernier choix effectué n'aboutit pas donc on le dépile
-					ch.getNextChoices().remove(choix); //à décommenter si on veut garder que les choix utiles
+					ch.getNextChoices().remove(choix); //à commenter si on veut garder que les inutiles
 					//on continue le parcours des règles
 					continue;
 				}
@@ -302,7 +297,9 @@ public class Interprete {
 					Tools.addText(sol.getFinalChoice().toString());
 					Tools.addText(sol.getFinalChoice().getEnv().toString());
 					//demander si utilisateur veut chercher d'autres solutions
-					more = Question.choix("Voulez-vous continuer à chercher d'autres solutions?");
+					more = Question.choix("Solution trouvée :\n"+
+							sol.getFinalChoice().toString()+"\n"+
+							"\n\nVoulez-vous continuer à chercher d'autres solutions?");
 				} 
 			}
 		} catch (NoSolutionException excep) {

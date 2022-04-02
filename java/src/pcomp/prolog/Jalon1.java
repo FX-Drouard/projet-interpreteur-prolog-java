@@ -10,11 +10,18 @@ import pcomp.prolog.ast.excep.FormatASTNotOK;
 import pcomp.prolog.ast.excep.NoSolutionException;
 import pcomp.prolog.parser.PrologParser;
 
+/**
+ * Classe exécutable pour le Jalon 1 et 2
+ * @author François-Xavier Drouard, Camille Palisoc
+ *
+ */
 public class Jalon1 {
 
 	public static void main(String[] args) throws IOException {
-		// Tests avec les équations du TD
 		
+		// Jalon 1
+		// Tests de l'uni avec les équations du TD
+		System.out.println("Jalon 1");
 		System.out.println("Tests Unification");
 		System.out.println("\nEq 1\n");
 		// 1 :
@@ -196,7 +203,8 @@ public class Jalon1 {
 		}
 		
 		// Jalon2
-		System.out.println("\n\nTests interprete :");
+		System.out.println("\n\n\nJalon 2");
+		System.out.println("\n\nTests interpretes :");
 		Program prog_err = PrologParser.parseFile("tests_jalon_pl/interprete_err.pl");
 		
 		Program prog1 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
@@ -212,26 +220,26 @@ public class Jalon1 {
 		Program prog23 = PrologParser.parseFile("tests_jalon_pl/interprete2_test2.pl");
 		Program prog24 = PrologParser.parseFile("tests_jalon_pl/interprete2_test3.pl");
 		//interprete0
-		System.out.println("interprete0");
+		System.out.println("\ninterprete0");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog1);
 			Environnement env1 = Interprete.interprete0(prog1);
 			env1.afficherEnv();
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog2);
 			Environnement env2 = Interprete.interprete0(prog2);
 			env2.afficherEnv();
-			System.out.println("Test 3");
+			System.out.println("\nTest 3");
 			System.out.println(prog3);
 			Environnement env3 = Interprete.interprete0(prog3);
 			env3.afficherEnv();
 		} catch (IllegalArgumentException e) {
 			System.out.println(e);
 		}
-		System.out.println("\ncas de levée d'exception : ");
+		System.out.println("\n\ncas de levée d'exception : ");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog11);
 			Environnement env1 = Interprete.interprete0(prog11);
 			env1.afficherEnv();
@@ -239,7 +247,7 @@ public class Jalon1 {
 			System.out.println(e);
 		}
 		try {
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog22);
 			Environnement env1 = Interprete.interprete0(prog22);
 			env1.afficherEnv();
@@ -247,7 +255,7 @@ public class Jalon1 {
 			System.out.println(e);
 		}
 		try {
-			System.out.println("Test 3");
+			System.out.println("\nTest 3");
 			System.out.println(prog_err);
 			Environnement env1 = Interprete.interprete0(prog_err);
 			env1.afficherEnv();
@@ -258,11 +266,11 @@ public class Jalon1 {
 		//interprete1
 		System.out.println("\n\ninterprete1");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog11);
 			Environnement env11 = Interprete.interprete1(prog11);
 			env11.afficherEnv();
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog12);
 			Environnement env12 = Interprete.interprete1(prog12);
 			env12.afficherEnv();;
@@ -271,7 +279,7 @@ public class Jalon1 {
 		}
 		System.out.println("\ncas de levée d'exception : ");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog13);
 			Environnement env1 = Interprete.interprete1(prog13);
 			env1.afficherEnv();
@@ -279,7 +287,7 @@ public class Jalon1 {
 			System.out.println(e);
 		}
 		try {
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog_err);
 			Environnement env1 = Interprete.interprete1(prog_err);
 			env1.afficherEnv();
@@ -287,7 +295,7 @@ public class Jalon1 {
 			System.out.println(e);
 		}
 		try {
-			System.out.println("Test 3");
+			System.out.println("\nTest 3");
 			System.out.println(prog24);
 			Environnement env1 = Interprete.interprete1(prog24);
 			env1.afficherEnv();
@@ -298,19 +306,19 @@ public class Jalon1 {
 		//interprete2
 		System.out.println("\n\ninterprete2");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog21);
 			Environnement env21 = Interprete.interprete2(prog21);
 			env21.afficherEnv();
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog22);
 			Environnement env22 = Interprete.interprete2(prog22);
 			env22.afficherEnv();
-			System.out.println("Test 3");
+			System.out.println("\nTest 3");
 			System.out.println(prog23);
 			Environnement env23 = Interprete.interprete2(prog23);
 			env23.afficherEnv();
-			System.out.println("Test 4");
+			System.out.println("\nTest 4");
 			System.out.println(prog24);
 			Environnement env24 = Interprete.interprete2(prog24);
 			env24.afficherEnv();
@@ -319,7 +327,7 @@ public class Jalon1 {
 		}
 		System.out.println("\ncas de levée d'exception : ");
 		try {
-			System.out.println("Test 1");
+			System.out.println("\nTest 1");
 			System.out.println(prog_err);
 			Environnement env1 = Interprete.interprete2(prog_err);
 			env1.afficherEnv();
@@ -327,7 +335,7 @@ public class Jalon1 {
 			System.out.println(e);
 		}
 		try {
-			System.out.println("Test 2");
+			System.out.println("\nTest 2");
 			System.out.println(prog13);
 			Environnement env1 = Interprete.interprete2(prog13);
 			env1.afficherEnv();
