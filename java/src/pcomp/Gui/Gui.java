@@ -21,12 +21,16 @@ import pcomp.IO.OutputParser;
 import pcomp.prolog.parser.PrologParser;
 import javax.swing.SwingConstants;
 
+/**
+ * Cette classe permet de crée des interfaces plus poussée que son homologue "Question" | Version V1.5
+ * @author François-Xavier Drouard  
+ */
 public class Gui {
 
 	private JFrame frame;
 
 	/**
-	 * Launch the application.
+	 * Lance La fenetre. 
 	 */
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
@@ -35,21 +39,21 @@ public class Gui {
 					Gui window = new Gui();
 					window.frame.setVisible(true);
 				} catch (Exception e) {
-					e.printStackTrace();
+					Question.warn("Erreur Critique: "+e.getMessage());
 				}
 			}
 		});
 	}
 
 	/**
-	 * Create the application.
+	 * Initialise et Lance la fenetre graphique.
 	 */
 	public Gui() {
 		initialize();
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Gère la fenetre écrite dans les differentes sections et gere l'interprete, le chargement et déchargement des fichiers et l'affichage des résultats .
 	 */
 	private void initialize() {
 		frame = new JFrame();
@@ -152,14 +156,14 @@ public class Gui {
 		}
 	})
 	;
-	/*JButton newb = new JButton(new ImageIcon( "./data/new.png" ));
+	JButton newb = new JButton(new ImageIcon( "./data/new.png" ));
 	newb.setToolTipText("Nouvelle Fenetre");
 	newb.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent e) {
-			Question.info("Trouve un moyen de cree un new ");
 			try {
-				Runtime.getRuntime().exec("java -jar "+argss[0]+".jar");
-			} catch (IOException e1) {
+				Gui lui = new Gui();
+				lui.frame.setVisible(true);
+			} catch (Exception e1) {
 				// TODO Auto-generated catch block
 				Question.warn("Erreur : "+e1.getMessage());
 			}
@@ -167,7 +171,7 @@ public class Gui {
 		}
 	})
 	;
-	toolBar.add(newb);*/
+	toolBar.add(newb);
 	toolBar.add(importe);
 	toolBar.add(save);
 	}
