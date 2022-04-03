@@ -122,6 +122,10 @@ Dans un second temps nous avons créé une interface graphique simple avec une zon
 ```
 
 ```
+	L'implémentation du toplevel se fait dans les packages pcomp.Gui et pcomp.IO. Elle est lancée en exécutant la classe Gui dans le package pcomp.Gui. L'interprète utilisé pour l'affichage dans l'interface est le dernier interprète donnant l'option de chercher plusieurs solutions. Le suivi de l'exécution par l'affichage est résolté par la classe "statique" et ne peut être affichée qu'à la fin de l'exécution de l'interprète. On affiche donc la dernière solution trouvée à travers la fenêtre qui demande à l'utilisateur s'il veut chercher d'autres solutions.
+```
+
+```
 	Pour l'algorithme nous servant à donner plusieurs solutions, nous alons modifier la méthode choose implémentée dans le Jalon précédent.
 	Notre algorithme se repose sur la sauvegarde des contextes dans un journal de choix. Nous remontons chaque choix, en commençant par le choix le plus récent, pour voir si on ne pouvait pas choisir autrement à ce moment-là.
 	Nous ajoutons donc un attribut List à CurrContext qui nous sert à conserver les choix effectués juste après le choix courant. Il sera ajouté lors de la création du contexte du choix suivant. La liste est initialisée à vide.
