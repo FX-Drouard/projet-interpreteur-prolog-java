@@ -156,7 +156,7 @@ public class Interprete {
 	 * @return environnement solution, lance l'exception NoSolutionException si le problème n'est pas satisfiable
 	 */
 	public static Environnement interprete4(Program ast) {
-		//séparation des Decl du Program
+		// séparation des Decl du Program
 		VisitorDecl separator = new VisitorDecl(false);
 		for (Decl d : ast.getDeclarations()) {
 			d.accept(separator);
@@ -181,7 +181,7 @@ public class Interprete {
 		List<Predicate> goals = separator.getButs();
 		List<DeclAssertion> rules = separator.getRegles();
 		
-		//résolution
+		// résolution
 		CurrContext ch = new CurrContext(goals,rules,new Environnement());
 		
 		return multiSolve(ch);
@@ -286,7 +286,6 @@ public class Interprete {
 		//si goals non vide :
 		if (goals.isEmpty()) {
 			throw new SolutionFound(ch);
-			//return env;
 		}
 		//résolution du premier but
 		Predicate but = goals.get(0);
@@ -319,14 +318,13 @@ public class Interprete {
 				//on retire le but qui vient d'être partiellement résolu
 				nouvGoals.remove(but);
 				nouvGoals.addAll(renamed.getPredicates());
-				//Tools.addText("Environnement choix : "+s.getEnv());
 				CurrContext choix = new CurrContext(r, nouvGoals, rules, s.getEnv(), ch);
 				ch.addNextChoice(choix);
 				try {
 					choose(cpt++, choix, choix.getGoals(), choix.getRules(), choix.getEnv());
 				} catch (NoSolutionException excep) {
 					//le dernier choix effectué n'aboutit pas donc on le dépile
-					ch.getNextChoices().remove(choix); //à commenter si on veut garder que les inutiles
+					ch.getNextChoices().remove(choix); //à commenter si on veut garder les choix inutiles
 					//on continue le parcours des règles
 					continue;
 				}
@@ -353,7 +351,6 @@ public class Interprete {
 			Tools.addText(sol.getMessage());
 			Tools.addText("Journal des choix :");
 			Tools.addText(sol.getFinalChoice().toString());
-//			CurrContext.afficheChoice(sol.getFinalChoice()); //pour afficher sur la sortie standard
 			Environnement res = sol.getFinalChoice().getEnv();
 			res.nettoieEnv(vars(goals));
 			return res;

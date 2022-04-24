@@ -95,17 +95,12 @@ public class Systeme {
 	 * @return true si la règle a pu être appliquée
 	 */
 	private boolean decomposer() {
-//		System.out.println("Décomposer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.decomposer(this);
 		}
-//		System.out.println(replaced);
-//		if (replaced) {
-//			afficherSysteme();
-//		}
 		return replaced;
 	}
 	
@@ -114,17 +109,12 @@ public class Systeme {
 	 * @return true si la règle a pu être appliquée
 	 */
 	private boolean effacer() {
-//		System.out.println("Effacer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.effacer(this);
 		}
-//		System.out.println(replaced);
-//		if (replaced) {
-//			afficherSysteme();
-//		}
 		return replaced;
 	}
 	
@@ -133,17 +123,12 @@ public class Systeme {
 	 * @return true si la règle a pu être appliquée
 	 */
 	private boolean orienter() {
-//		System.out.println("Orienter?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
 		for (Equation e : oldSys) {
 			replaced = replaced || e.orienter(this);
 		}
-//		System.out.println(replaced);
-//		if (replaced) {
-//			afficherSysteme();
-//		}
 		return replaced;
 	}
 	
@@ -152,7 +137,6 @@ public class Systeme {
 	 * @return true si la règle a pu être appliquée
 	 */
 	private boolean remplacer() {
-//		System.out.println("Remplacer?");
 		boolean replaced = false;
 		// liste contiendra l'ancien systeme d'equations, on fera la boucle dessus
 		List<Equation> oldSys = copie();
@@ -164,11 +148,6 @@ public class Systeme {
 				replaced = true;
 			}
 		}
-//		System.out.println(replaced);
-//		if (replaced) {
-//			subst();
-//			afficherSysteme();
-//		}
 		return replaced;
 	}
 	
@@ -176,8 +155,6 @@ public class Systeme {
 	 * Applique la règle remplacer sur les équations du système avec le contenu de l'environnement
 	 */
 	private void subst() {
-//		System.out.println("Substitution?");
-//		env.afficherEnv();
 		// regleapp sert de condition d'arret de notre boucle d'unification
 		boolean replaced = true;
 		List<Equation> oldSys;
@@ -190,10 +167,6 @@ public class Systeme {
 				}
 			}
 		}
-//		System.out.println(replaced);
-//		if (replaced) {
-//			afficherSysteme();
-//		}
 	}
 	
 	/**
@@ -213,7 +186,6 @@ public class Systeme {
 			regleapp = regleapp || remplacer();
 		}
 		
-		//afficherSysteme();
 	}
 
 }

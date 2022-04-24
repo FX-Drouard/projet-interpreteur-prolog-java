@@ -1,6 +1,6 @@
  /*
- * PCOMP (LU3IN032), Licence 3, Sorbonne UniversitÃ©
- * annÃ©e 2021-2022
+ * PCOMP (LU3IN032), Licence 3, Sorbonne Université
+ * année 2021-2022
  *
  * Projet Prolog
  */
@@ -18,8 +18,8 @@ import pcomp.prolog.ast.TermPredicate;
 import pcomp.prolog.parser.PrologParser;
 
 /*
- * Point d'entrÃ©e d'exemple : construction de l'arbre syntaxique abstrait (AST) Ã  partir
- * d'une chaÃ®ne ou d'un fichier texte en utilisant un parser ANTLR 4.
+ * Point d'entrée d'exemple : construction de l'arbre syntaxique abstrait (AST) à partir
+ * d'une chaîne ou d'un fichier texte en utilisant un parser ANTLR 4.
  */
 
 public class Main {

@@ -34,8 +34,6 @@ public class InputParser {
         int choix = chooser.showOpenDialog(frame);
         if (choix == JFileChooser.APPROVE_OPTION) {
            File file = chooser.getSelectedFile();
-            //File[] files = chooser.getSelectedFiles();
-            // Ajouter ton code pour consommer 'files'
             try
             {
               // Le fichier d'entrée   

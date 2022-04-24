@@ -51,7 +51,6 @@ public class CurrContext {
 	 */
 	public CurrContext(List<Predicate> goals, List<DeclAssertion> rules, Environnement env) {
 		this.choice = null;
-		//pas besoin de copier parce que par construction, le goals passé en paramètre est une nouvelle liste (dans solve du Jalon4)
 		this.goals = goals;
 		toExplore = rules;
 		this.env = env;
@@ -95,7 +94,7 @@ public class CurrContext {
 	
 	/**
 	 * Getter pour l'attribut nextChoices
-	 * @return la liste des choix effectués exactement après le courant
+	 * @return la liste des choix effectués exactement après le choix courant
 	 */
 	public List<CurrContext> getNextChoices() {
 		return nextChoices;

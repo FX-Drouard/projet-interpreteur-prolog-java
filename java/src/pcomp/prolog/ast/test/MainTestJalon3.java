@@ -42,12 +42,7 @@ public class MainTestJalon3 {
 		for (Decl d : decls) {
 			d.accept(v);
 		}
-		//System.out.println(v.getReglesCond());
 		
-		// Environnement non vide
-//		Program prog2 = PrologParser.parseFile("tests_jalon_pl/interprete0_test0.pl");
-//		Environnement e = Interprete.interprete0(prog2);
-//		e.afficherEnv();
 		Environnement e = new Environnement();
 		try {
 			Environnement env = Interprete.choose(n, e, v.getButs().get(0), v.getRegles(), nouvGoals);

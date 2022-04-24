@@ -16,7 +16,7 @@ public class Jalon1 {
 	public static void main(String[] args) throws IOException {
 		
 		// Jalon 1
-		// Tests de l'uni avec les équations du TD
+		// Tests de l'unification avec les équations du TD
 		System.out.println("Jalon 1");
 		System.out.println("Tests Unification");
 		System.out.println("\nEq 1\n");

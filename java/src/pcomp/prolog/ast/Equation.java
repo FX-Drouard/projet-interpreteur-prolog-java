@@ -112,7 +112,7 @@ public class Equation {
 			if (gauche.equals(x)) {
 				// on remplace
 				replaced = true;
-				gauche = nouv; // creer un setter?
+				gauche = nouv;
 			}
 		} else {
 			// c'est un TermPredicate
